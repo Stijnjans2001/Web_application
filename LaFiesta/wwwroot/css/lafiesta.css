@@ -1,0 +1,48 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Fuzzy+Bubbles&display=swap');
+:root{
+    --turquoise: #81F4E1;
+    --blue: #56CBF9;
+    --pink: #FF729F;
+    --lavender: #AB87FF;
+}
+/* Primary color instellen*/
+.bg-primary {
+    background-color: var(--lavender) !important;
+}
+
+/* Link teksten vet maken */
+a.nav-link {
+    font-family: 'Fuzzy Bubbles';
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Tekstkleur van navbar brand/tekst wit maken */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    font-family: 'Fuzzy Bubbles';
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+/* Tekstkleur van navbar links wit maken */
+.navbar-custom .navbar-nav .nav-link {
+    color: white;
+    text-align: center;
+}
+
+/* Tekstkleur van navbar links (bij active/hover) roze onderlijnen maken */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    text-decoration: underline;
+    text-decoration-color: var(--pink);
+    text-decoration-thickness: 3px;
+}
+
+.navbar-brand img {
+    filter: drop-shadow(0 0 0.50rem #252525);
+    height: 50px;
+} 
+
+
