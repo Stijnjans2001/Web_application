@@ -17,10 +17,6 @@ namespace LaFiesta.Areas.Identity.Data
         public string Achternaam { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        [Required]
         [PersonalData]
         public string Geslacht { get; set; }
 
