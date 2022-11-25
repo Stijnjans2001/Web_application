@@ -24,6 +24,6 @@ namespace LaFiesta.Models
         public string Postcode { get; set; }
 
         [Required]
-        public ICollection<Locatie> Locaties { get; set; }
+        public ICollection<Festival> Festivals { get; set; }
     }
 }

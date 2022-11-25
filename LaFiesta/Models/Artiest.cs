@@ -30,6 +30,6 @@ namespace LaFiesta.Models
         public string Genre { get; set; }
 
         [Required]
-        public ICollection<Artiest> Artiesten { get; set; }
+        public ICollection<FestivalArtiest> FestivalArtiesten { get; set; }
     }
 }

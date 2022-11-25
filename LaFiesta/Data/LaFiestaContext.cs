@@ -1,11 +1,11 @@
-﻿using LaFiesta.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using LaFiesta.Areas.Identity.Data;
+using LaFiesta.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LaFiesta.Data
 {
-    public class LaFiestaContext : IdentityDbContext<IdentityUser>
+    public class LaFiestaContext : IdentityDbContext<CustomUser>
     {
         public LaFiestaContext(DbContextOptions<LaFiestaContext> option) : base(option)
         {

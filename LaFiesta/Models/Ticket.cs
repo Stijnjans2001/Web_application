@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using LaFiesta.Areas.Identity.Data;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -28,5 +29,7 @@ namespace LaFiesta.Models
         [Required]
         public ICollection<Ticket> Tickets { get; set; }
 
+        [Required]
+        public CustomUser CustomUser { get; set; }
     }
 }

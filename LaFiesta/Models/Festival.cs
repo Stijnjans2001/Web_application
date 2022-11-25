@@ -30,7 +30,10 @@ namespace LaFiesta.Models
         public string Afbeelding { get; set; }
 
         [Required]
-        public ICollection<Festival> Festivals { get; set; }
+        public ICollection<TicketFestival> TicketFestivals { get; set; }
+
+        [Required]
+        public ICollection<FestivalArtiest> FestivalArtiesten { get; set; }
 
         [Required]
         [ForeignKey("Locatie")]

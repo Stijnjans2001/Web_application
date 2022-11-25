@@ -1,3 +1,4 @@
+using LaFiesta.Areas.Identity.Data;
 using LaFiesta.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,7 +31,9 @@ namespace LaFiesta
             services.AddControllersWithViews();
 
             services.AddDbContext<LaFiestaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDBConnection")));
-            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<LaFiestaContext>();
+            services.AddDefaultIdentity<CustomUser>().AddEntityFrameworkStores<LaFiestaContext>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<LaFiestaContext>();
             services.AddRazorPages();
             services.Configure<IdentityOptions>(options =>
             {
