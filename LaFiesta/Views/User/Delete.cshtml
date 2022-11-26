@@ -1,0 +1,15 @@
+﻿@model LaFiesta.ViewModels.Delete.DeleteUserViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1> 
+
+<h4>Are you sure you want to delete @Model.Voornaam @Model.Achternaam</h4>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="UserId"/>
+    <input type="submit" value="Delete" class="btn btn-primary"/>
+</form>
+<a asp-action="Index">Back to List</a>

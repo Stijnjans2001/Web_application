@@ -39,7 +39,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Input.Geslacht"></label>
-                <input asp-for="Input.Geslacht" class="form-control" />
+                <!--<input asp-for="Input.Geslacht" class="form-control" />-->
+				<input type="radio" asp-for="Input.Geslacht" value="Man" class="form-control" />Man<br/>
+                <input type="radio" asp-for="Input.Geslacht" value="Vrouw" class="form-control" />Vrouw<br />
+                <input type="radio" asp-for="Input.Geslacht" value="Overige" class="form-control" />Overige<br />
                 <span asp-validation-for="Input.Geslacht" class="text-danger"></span>
             </div>
             <div class="form-group">

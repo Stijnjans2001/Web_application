@@ -1,0 +1,15 @@
+﻿@model LaFiesta.ViewModels.Detail.DetailUserViewModel
+
+@{
+	ViewData["Title"] = "Details";
+}
+
+<h1>@Model.Voornaam @Model.Achternaam</h1>
+
+<p>Id: @Model.Id</p>
+<p>Voornaam: @Model.Voornaam</p>
+<p>Achternaam: @Model.Achternaam</p>
+<p>Geboortedatum: @Model.Geboortedatum</p>
+<p>Geslacht: @Model.Geslacht</p>
+
+@Html.ActionLink("Terug", "Index", "User")

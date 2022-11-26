@@ -1,0 +1,62 @@
+﻿@model LaFiesta.ViewModels.Lists.ListUserViewModel
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h2>Gebruikers</h2>
+<p>
+	<a asp-action="Create">Create New</a>
+</p>
+
+<table>
+	<thead>
+		<tr>
+			<th class="col-md-2">
+				@Html.DisplayNameFor(u => u.Users[0].Id)
+			</th>
+			<th class="col-md-2">
+				@Html.DisplayNameFor(u => u.Users[0].Voornaam)
+			</th>
+			<th class="col-md-2">
+				@Html.DisplayNameFor(u => u.Users[0].Achternaam)
+			</th>
+			<th class="col-md-2">
+				@Html.DisplayNameFor(u => u.Users[0].Geboortedatum)
+			</th>
+			<th class="col-md-2">
+				@Html.DisplayNameFor(u => u.Users[0].Geslacht)
+			</th>
+			<th class="col-md-2">
+				&nbsp;
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var user in Model.Users)
+		{
+			<tr>
+				<td class="col-md-2">
+					@Html.DisplayFor(modelItem => user.Id)
+				</td>
+				<td class="col-md-2">
+					@Html.DisplayFor(modelItem => user.Voornaam)
+				</td>
+				<td class="col-md-2">
+					@Html.DisplayFor(modelItem => user.Achternaam)
+				</td>
+				<td class="col-md-2">
+					@Html.DisplayFor(modelItem => user.Geboortedatum)
+				</td>
+				<td class="col-md-2">
+					@Html.DisplayFor(modelItem => user.Geslacht)
+				</td>
+				<td class="col-md-2">
+					<a asp-action="Details" asp-route-id="@user.Id">Details</a> 
+					|
+					<a asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
