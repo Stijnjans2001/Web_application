@@ -91,7 +91,6 @@ namespace LaFiesta.Controllers
             return View(viewModel);
         }
 
-        //Deleten van een user werkt niet
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -114,16 +113,6 @@ namespace LaFiesta.Controllers
             return View(viewModel);
         }
 
-        
-        /*[HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-         public async Task<IActionResult> DeleteConfirmed(string id)
-         {
-            CustomUser user = await _userManager.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
-            _userManager.Users.Remove(user);
-            await _userManager.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-         }*/
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
