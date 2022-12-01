@@ -1,5 +1,6 @@
 ﻿using LaFiesta.Areas.Identity.Data;
 using LaFiesta.ViewModels.Create;
+using LaFiesta.ViewModels.Delete;
 using LaFiesta.ViewModels.Detail;
 using LaFiesta.ViewModels.Lists;
 using Microsoft.AspNetCore.Identity;
@@ -90,12 +91,45 @@ namespace LaFiesta.Controllers
             return View(viewModel);
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        //Deleten van een user werkt niet
         public async Task<IActionResult> Delete(string id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            CustomUser user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            DeleteUserViewModel viewModel = new DeleteUserViewModel()
+            {
+                Id = user.Id,
+                Voornaam = user.Voornaam,
+                Achternaam = user.Achternaam
+            };
+            return View(viewModel);
+        }
+
+        
+        /*[HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+         public async Task<IActionResult> DeleteConfirmed(string id)
+         {
+            CustomUser user = await _userManager.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+            _userManager.Users.Remove(user);
+            await _userManager.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+         }*/
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
             CustomUser user = await _userManager.FindByIdAsync(id);
-            if (user != null) 
+            if (user != null)
             {
                 IdentityResult result = await _userManager.DeleteAsync(user);
                 if (result.Succeeded)
@@ -104,7 +138,7 @@ namespace LaFiesta.Controllers
                 }
                 else
                 {
-                    foreach(IdentityError error in result.Errors)
+                    foreach (IdentityError error in result.Errors)
                     {
                         ModelState.AddModelError("", error.Description);
                     }
@@ -112,7 +146,7 @@ namespace LaFiesta.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "User Not Found!");
+                ModelState.AddModelError("", "User Not Found");
             }
             return View("Index", _userManager.Users.ToList());
         }

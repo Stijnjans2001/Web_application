@@ -17,6 +17,7 @@ namespace LaFiesta.Data
         public DbSet<FestivalArtiest> FestivalArtiests { get; set; }
         public DbSet<Locatie> Locaties { get; set; }
         public DbSet<TicketFestival> TicketFestivals { get; set; }
+        public DbSet<CustomUser> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
