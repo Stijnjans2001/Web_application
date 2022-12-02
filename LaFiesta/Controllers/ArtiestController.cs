@@ -72,7 +72,7 @@ namespace LaFiesta.Controllers
             if (artiest == null)
                 return NotFound();
 
-            EditArtiestlViewModel vm = new EditArtiestlViewModel()
+            EditArtiestViewModel vm = new EditArtiestViewModel()
             {
                 Id = artiest.Id,
                 Afbeelding = artiest.Afbeelding,
@@ -88,7 +88,7 @@ namespace LaFiesta.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditDonut(int id, EditArtiestlViewModel viewModel)
+        public async Task<IActionResult> Edit(int id, EditArtiestViewModel viewModel)
         {
             if (id != viewModel.Id)
             {
@@ -123,7 +123,7 @@ namespace LaFiesta.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Artiest));
+                return RedirectToAction("Index");
             }
             return View(viewModel);
         }

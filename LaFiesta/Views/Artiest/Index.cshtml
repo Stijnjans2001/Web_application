@@ -4,38 +4,38 @@
     ViewData["Title"] = "Artiest";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Artiesten</h1>
-</div>
-<p>
-	<a asp-action="Create">Create New Artist</a>
-</p>
-<div class="container" style="align-content:center;">
-	@foreach (var artiest in Model.Artiesten)
-	{
-		<div class="card m-2" style="width: 18rem; height: 25rem; float: left;">
-			<img src="~/images/artiesten/@artiest.Afbeelding" class="card-img-top" alt="@artiest.Afbeelding" style="height: 10rem; width: auto;">
-			<div class="card-body" style="background-color: #AB87FF;">
-				<h5 class="card-title" style="color: white; text-align: center;">@Html.DisplayFor(modelItem => artiest.Voornaam) @Html.DisplayFor(modelItem => artiest.Achternaam)</h5>
-				<p class="card-text" style="color: white;">
-					Geslacht: @Html.DisplayFor(modelItem => artiest.Geslacht)
-					<br>
-					Geboortedatum: @Html.DisplayFor(modelItem => artiest.Geboortedatum)
-					<br>
-					Genre: @Html.DisplayFor(modelItem => artiest.Genre)
-				</p>
-				<div style="text-align: center; color: white;">
-					<a asp-action="Edit" asp-route-id="@artiest.Id" style="color: white;">Edit</a>
-					|
-					<a asp-action="Delete" asp-route-id="@artiest.Id" style="color: white;">Delete</a>
+
+		<div class="text-center">
+			<h1 class="display-4">Artiesten</h1>
+		</div>
+		<p>
+			<a asp-action="Create">Create New Artist</a>
+		</p>
+<div class="row justify-content-center">
+		@foreach (var artiest in Model.Artiesten)
+		{	
+			<div class="card m-2 col-3 p-0">
+				<img src="~/images/artiesten/@artiest.Afbeelding" class="card-img-top" alt="@artiest.Afbeelding" style="height: 70%;">
+				<div class="card-body" style="background-color: #AB87FF;">
+					<h5 class="card-title" style="color: white; text-align: center;">@Html.DisplayFor(modelItem => artiest.Voornaam) @Html.DisplayFor(modelItem => artiest.Achternaam)</h5>
+					<p class="card-text" style="color: white;">
+						Geslacht: @Html.DisplayFor(modelItem => artiest.Geslacht)
+						<br>
+						Geboortedatum: @Html.DisplayFor(modelItem => artiest.Geboortedatum)
+						<br>
+						Genre: @Html.DisplayFor(modelItem => artiest.Genre)
+					</p>
+					<div style="text-align: center; color: white;">
+						<a asp-action="Edit" asp-route-id="@artiest.Id" style="color: white;">Edit</a>
+						|
+						<a asp-action="Delete" asp-route-id="@artiest.Id" style="color: white;">Delete</a>
+					</div>
+				</div>
+				<div class="card-footer bg-primary" style="text-align: center; color: white;">
+					<a target="_blank" href="https://nl.wikipedia.org/wiki/@artiest.Voornaam&#95;@artiest.Achternaam" class="btn" style="background-color: #FF729F; color: white;">Meer details</a>
 				</div>
 			</div>
-			<div class="card-footer bg-primary" style="text-align: center; color: white;">
-				<a target="_blank" href="https://nl.wikipedia.org/wiki/@artiest.Voornaam&#95;@artiest.Achternaam" class="btn" style="background-color: #FF729F; color: white;">Meer details</a>
-			</div>
-		</div>
-		
-	}
+		}
 </div>
 
 <div style="clear: both;"/>

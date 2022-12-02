@@ -1,0 +1,17 @@
+﻿@model LaFiesta.ViewModels.Detail.DetailFestivalViewModel
+
+@{
+	ViewData["Title"] = "Details";
+}
+
+<h1>@Model.Naam</h1>
+
+<p>Id: @Model.Id</p>
+<p>Naam: @Model.Naam</p>
+<img href="@Model.Afbeelding"/>
+<p>Begin datum: @Model.BeginDatum</p>
+<p>Eind datum: @Model.EindDatum</p>
+<p>Minimum leeftijd: @Model.MinimumLeeftijd</p>
+<p>Omschrijving: @Model.Omschrijving</p>
+
+@Html.ActionLink("Terug", "Index", "Festivals")

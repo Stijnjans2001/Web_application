@@ -20,5 +20,7 @@ namespace LaFiesta.ViewModels.Edit
         public int MinimumLeeftijd { get; set; }
 
         public string Afbeelding { get; set; }
+
+        public int LocatieId { get; set; }
     }
 }
