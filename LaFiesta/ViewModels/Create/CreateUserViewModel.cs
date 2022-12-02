@@ -23,6 +23,7 @@ namespace LaFiesta.ViewModels.Create
         [Required]
 		public string Geslacht { get; set; }
 		[Required]
+		[DataType(DataType.Date)]
 		public DateTime Geboortedatum { get; set;}
 	}
 }

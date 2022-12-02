@@ -21,7 +21,8 @@ namespace LaFiesta.Models
         public string Geslacht { get; set; }
 
         [Required]
-        public DateTime Geboortedatum { get; set; }
+		[DataType(DataType.Date)]
+		public DateTime Geboortedatum { get; set; }
 
         [Required]
         public string Afbeelding { get; set; }

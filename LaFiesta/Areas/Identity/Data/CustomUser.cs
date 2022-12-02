@@ -22,7 +22,8 @@ namespace LaFiesta.Areas.Identity.Data
 
         [Required]
         [PersonalData]
-        public DateTime Geboortedatum { get; set; }
+		[DataType(DataType.Date)]
+		public DateTime Geboortedatum { get; set; }
 
         [Required]
         public ICollection<Ticket> Ticket { get; set; }

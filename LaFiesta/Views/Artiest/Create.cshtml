@@ -1,0 +1,69 @@
+﻿@model LaFiesta.ViewModels.Create.CreateArtiestViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>New Artist</h1>
+
+<h4>Create a new artist</h4>
+
+<form asp-action="Create">
+        <div class="row mt-5">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-md-6">
+					<div class="form-group">
+                        <label asp-for="Afbeelding">@Html.DisplayNameFor(model => this.Model.Afbeelding):</label>
+                        <br />
+                        <input asp-for="Afbeelding" class="form-control" disabled />
+						<span asp-validation-for="Afbeelding" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+                        <label asp-for="Voornaam">@Html.DisplayNameFor(model => this.Model.Voornaam):</label>
+						<input asp-for="Voornaam" class="form-control" />
+						<span asp-validation-for="Voornaam" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+                        <label asp-for="Achternaam">@Html.DisplayNameFor(model => this.Model.Achternaam):</label>
+						<input asp-for="Achternaam" class="form-control" />
+						<span asp-validation-for="Achternaam" class="text-danger"></span>
+					</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="padding-bottom: 6px">
+                        <label asp-for="Geslacht">@Html.DisplayNameFor(model => this.Model.Geslacht):</label>
+                        <br />
+                        <label style="display: inline-flex; align-items: center;">
+                            <input style="width: auto; height: auto;" type="radio" asp-for="Geslacht" value="Man" class="form-control" />&nbsp;Man
+                        </label>
+                        <label style="display: inline-flex; align-items: center; margin-left: 10px;">
+                            <input style="width: auto; height: auto;" type="radio" asp-for="Geslacht" value="Vrouw" class="form-control" />&nbsp;Vrouw
+                        </label>
+                        <label style="display: inline-flex; align-items: center; margin-left: 10px;">
+                            <input style="width: auto; height: auto;" type="radio" asp-for="Geslacht" value="Overige" class="form-control" />&nbsp;Overige
+                        </label>
+                        <span asp-validation-for="Geslacht" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Geboortedatum">@Html.DisplayNameFor(model => this.Model.Geboortedatum):</label>
+                        <input type="date" asp-for="Geboortedatum" class="form-control" />
+                        <span asp-validation-for="Geboortedatum" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Genre">@Html.DisplayNameFor(model => this.Model.Genre):</label>
+                        <input asp-for="Genre" class="form-control" />
+                        <span asp-validation-for="Genre" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group ml-2">
+                    <input type="submit" value="Create" class="btn" />
+                    <a asp-action="Index" class="btn">Terug naar lijst</a>
+                </div>
+        </div>        
+</form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

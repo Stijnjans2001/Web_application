@@ -44,7 +44,8 @@ namespace LaFiesta.Areas.Identity.Pages.Account.Manage
             [Required]
             public string Geslacht { get; set; }
             [Required]
-            public DateTime Geboortedatum { get; set; }
+			[DataType(DataType.Date)]
+			public DateTime Geboortedatum { get; set; }
         }
 
         private async Task LoadAsync(CustomUser user)
