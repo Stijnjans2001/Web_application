@@ -29,7 +29,7 @@ namespace LaFiesta
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            //services.AddDbContext<LaFiestaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LaFiestaConnection")));
             services.AddDbContext<LaFiestaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDBConnection")));
             services.AddDefaultIdentity<CustomUser>().AddEntityFrameworkStores<LaFiestaContext>()
                 .AddRoles<IdentityRole>()

@@ -15,7 +15,8 @@ namespace LaFiesta.Models
         public int Id { get; set; }
 
         [Required]
-        public DateTime Datum { get; set; }
+		[DataType(DataType.Date)]
+		public DateTime Datum { get; set; }
 
         [Required]
         public string Soort { get; set; }
