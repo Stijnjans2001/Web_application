@@ -15,7 +15,7 @@
             <div class="form-group">
                 <label asp-for="Afbeelding">@Html.DisplayNameFor(model => this.Model.Afbeelding):</label>
                 <br />
-                <input asp-for="Afbeelding" class="form-control" disabled />
+                <input asp-for="Afbeelding" class="form-control" disabled/>
                 <span asp-validation-for="Afbeelding" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -47,7 +47,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="LocatieId">@Html.DisplayNameFor(model => this.Model.LocatieId):</label>
-                <input asp-for="LocatieId" class="form-control" />
+                <select class="form-control" asp-for="LocatieId">
+                    @foreach (var locatie in Model.Locaties)
+                    {
+                        <option value="@locatie.Id">@Html.DisplayFor(modelItem => locatie.Straat) @Html.DisplayFor(modelItem => locatie.Huisnummer) @Html.DisplayFor(modelItem => locatie.Postcode) @Html.DisplayFor(modelItem => locatie.Plaats)</option>
+                    }
+                </select>
                 <span asp-validation-for="LocatieId" class="text-danger"></span>
             </div>
         </div>

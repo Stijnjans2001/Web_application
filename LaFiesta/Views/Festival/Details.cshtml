@@ -5,13 +5,11 @@
 }
 
 <h1>@Model.Naam</h1>
-
-<p>Id: @Model.Id</p>
-<p>Naam: @Model.Naam</p>
-<img href="@Model.Afbeelding"/>
-<p>Begin datum: @Model.BeginDatum</p>
-<p>Eind datum: @Model.EindDatum</p>
+<p>Afbeelding:</p>
+<img src="~/images/festivals/@Model.Afbeelding" alt="@Model.Afbeelding" style="height: 10%"/>
 <p>Minimum leeftijd: @Model.MinimumLeeftijd</p>
+<p>Locatie: @Model.Locatie.Straat @Model.Locatie.Huisnummer @Model.Locatie.Postcode @Model.Locatie.Plaats</p>
+<p>Datum: @Model.BeginDatum - @Model.EindDatum</p>
 <p>Omschrijving: @Model.Omschrijving</p>
 
-@Html.ActionLink("Terug", "Index", "Festivals")
+@Html.ActionLink("Terug", "Index")

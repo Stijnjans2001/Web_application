@@ -16,26 +16,35 @@
 		@foreach (var festival in Model.Festivals)
 		{	
 			<div class="card m-2 col-3 p-0">
-				<img src="~/images/festivals/@festival.Afbeelding" class="card-img-top" alt="@festival.Afbeelding" style="height: 70%;">
+				<img src="~/images/festivals/@festival.Afbeelding" class="card-img-top" alt="@festival.Afbeelding" style="height: 10rem;">
 				<div class="card-body" style="background-color: #AB87FF;">
-					<h5 class="card-title" style="color: white; text-align: center;">@Html.DisplayFor(modelItem => festival.Naam) @Html.DisplayFor(modelItem => festival.Naam)</h5>
+					<h5 class="card-title" style="color: white; text-align: center;">@Html.DisplayFor(modelItem => festival.Naam)</h5>
 					<p class="card-text" style="color: white;">
-						Minimum leeftijd: @Html.DisplayFor(modelItem => festival.MinimumLeeftijd)
+						<strong>Minimum leeftijd:</strong> 
 						<br>
-						Begin datum: @Html.DisplayFor(modelItem => festival.BeginDatum) Eind datum: @Html.DisplayFor(modelItem => festival.EindDatum)  
+						@Html.DisplayFor(modelItem => festival.MinimumLeeftijd)
 						<br>
-						Omschrijving: @Html.DisplayFor(modelItem => festival.Omschrijving)
+						<strong>Locatie:</strong>
 						<br>
-						Locatie: @Html.DisplayFor(modelItem => festival.LocatieId)
+						@Html.DisplayFor(modelItem => festival.Locatie.Straat) @Html.DisplayFor(modelItem => festival.Locatie.Huisnummer) @Html.DisplayFor(modelItem => festival.Locatie.Postcode) @Html.DisplayFor(modelItem => festival.Locatie.Plaats)
+						<br>
+						<strong>Datum:</strong> 
+						<br>
+						@Html.DisplayFor(modelItem => festival.BeginDatum) - @Html.DisplayFor(modelItem => festival.EindDatum)
+						<br>
+						<strong>Omschrijving:</strong>
+						<br>
+						@Html.DisplayFor(modelItem => festival.Omschrijving)
 					</p>
-					<div style="text-align: center; color: white;">
+				</div>
+				<div class="card-footer bg-primary" style="text-align: center; color: white;">
+					<div style="text-align: center;">
 						<a asp-action="Edit" asp-route-id="@festival.Id" style="color: white;">Edit</a>
 						|
 						<a asp-action="Delete" asp-route-id="@festival.Id" style="color: white;">Delete</a>
 					</div>
-				</div>
-				<div class="card-footer bg-primary" style="text-align: center; color: white;">
-					<a target="_blank" href="" class="btn" style="background-color: #FF729F; color: white;">Meer details</a>
+					<a asp-action="Details" asp-route-id="@festival.Id" class="btn" style="background-color: #FF729F; color: white;">Details</a>
+					<a asp-action="Index" asp-route-id="" class="btn" style="background-color: #FF729F; color: white;">Tickets</a>
 				</div>
 			</div>
 		}

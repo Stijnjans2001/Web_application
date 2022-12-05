@@ -6,7 +6,7 @@
 
 <h1>Delete</h1>
 
-<h4>Are you sure you want to delete @Model.Naam @Model.BeginDatum @Model.EindDatum</h4>
+<h4>Are you sure you want to delete @Model.Naam: @Model.BeginDatum - @Model.EindDatum</h4>
 
 <form asp-action="Delete">
     <input type="hidden" asp-route-id="@Model.Id" />

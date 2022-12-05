@@ -8,6 +8,7 @@ using LaFiesta.ViewModels.Edit;
 using LaFiesta.ViewModels.Lists;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,7 +28,8 @@ namespace LaFiesta.Controllers
         {
             ListFestivalViewModel vm = new ListFestivalViewModel()
             {
-                Festivals = _context.Festivals.ToList()
+                Festivals = _context.Festivals.ToList(),
+                Locaties = _context.Locaties.ToList()
             };
 
             return View(vm);
@@ -35,7 +37,11 @@ namespace LaFiesta.Controllers
 
 		public IActionResult Create()
 		{
-			return View();
+            CreateFestivalViewModel vm = new CreateFestivalViewModel()
+            {
+                Locaties = _context.Locaties.ToList()
+            };
+			return View(vm);
 		}
 
 		[HttpPost]
@@ -67,12 +73,12 @@ namespace LaFiesta.Controllers
                 return NotFound();
 
             Festival festival = _context.Festivals.Where(d => d.Id == id).FirstOrDefault();
-
             if (festival == null)
                 return NotFound();
 
             EditFestivalViewModel vm = new EditFestivalViewModel()
             {
+                Locaties = _context.Locaties.ToList(),
                 Id = festival.Id,
                 Afbeelding = festival.Afbeelding,
                 Naam = festival.Naam,
@@ -131,6 +137,7 @@ namespace LaFiesta.Controllers
         public IActionResult Details(int id)
         {
             Festival festival = _context.Festivals.Where(f => f.Id == id).FirstOrDefault();
+            Locatie locatie = _context.Locaties.Where(d => d.Id == id).FirstOrDefault();
             if(festival != null)
             {
 				DetailFestivalViewModel vm = new DetailFestivalViewModel()
@@ -140,8 +147,9 @@ namespace LaFiesta.Controllers
 					BeginDatum = festival.BeginDatum,
 					EindDatum = festival.EindDatum,
 					MinimumLeeftijd = festival.MinimumLeeftijd,
-					Afbeelding = festival.Afbeelding
-				};
+					Afbeelding = festival.Afbeelding,
+                    Locatie = festival.Locatie,
+                };
 				return View(vm);
 			}
             else
