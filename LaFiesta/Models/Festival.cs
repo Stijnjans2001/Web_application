@@ -18,9 +18,11 @@ namespace LaFiesta.Models
         public string Omschrijving { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime BeginDatum { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime EindDatum { get; set; }
 
         [Required]

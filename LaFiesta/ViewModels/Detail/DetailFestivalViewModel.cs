@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LaFiesta.Models;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace LaFiesta.ViewModels.Detail
@@ -20,5 +22,6 @@ namespace LaFiesta.ViewModels.Detail
         public int MinimumLeeftijd { get; set; }
         
         public string Afbeelding { get; set; }
+        public Locatie Locatie { get; set; }
     }
 }
