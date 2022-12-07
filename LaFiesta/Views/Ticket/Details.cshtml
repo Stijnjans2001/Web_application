@@ -1,0 +1,16 @@
+﻿@model LaFiesta.ViewModels.Detail.DetailTicketViewModel
+
+@{
+	ViewData["Title"] = "Details";
+}
+<p style="font-size: xx-large; font-weight: bolder">
+	<strong>Bedankt om dit ticket te kopen!</strong>
+</p>
+<h3>@Model.Soort</h3>
+<p>Minimum leeftijd: @Model.Prijs</p>
+<p>Aantal: @Model.Aantal</p>
+<p>Datum: @Model.Datum</p>
+
+
+
+@Html.ActionLink("Terug", "Index")

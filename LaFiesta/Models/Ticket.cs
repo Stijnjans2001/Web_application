@@ -28,7 +28,7 @@ namespace LaFiesta.Models
         public int Aantal { get; set; }
 
         [Required]
-        public ICollection<Ticket> Tickets { get; set; }
+        public ICollection<TicketFestival> TicketsFestivals { get; set; }
 
         [Required]
         public CustomUser CustomUser { get; set; }
