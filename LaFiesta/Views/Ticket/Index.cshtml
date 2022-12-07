@@ -1,0 +1,43 @@
+﻿@model LaFiesta.ViewModels.Lists.ListTicketViewModel
+
+@{
+	ViewData["Title"] = "Ticket";
+}
+
+<div class="text-center">
+	<h1 class="display-4">Tickets</h1>
+</div>
+<div class="row justify-content-center">
+	@foreach (var ticket in Model.Tickets)
+	{	
+				<div class="card m-2 col-3 p-0">
+					<img src="~/images/tickets/dummy.png" class="card-img-top" alt="ticket" style="height: 10rem;">
+					<div class="card-body" style="background-color: #AB87FF;">
+						<h5 class="card-title" style="color: white; text-align: center;">@Html.DisplayFor(modelItem => ticket.Soort)</h5>
+						<p class="card-text" style="color: white;">
+							<strong>Id:</strong> 
+							<br>
+					@Html.DisplayFor(modelItem => ticket.Soort)
+							<br>
+							<strong>Prijs:</strong>
+							<br>
+					@Html.DisplayFor(modelItem => ticket.Prijs)
+							<br>
+							<strong>Aantal:</strong> 
+							<br>
+					@Html.DisplayFor(modelItem => ticket.Aantal)
+							<br>
+							<strong>Datum:</strong>
+							<br>
+					@Html.DisplayFor(modelItem => ticket.Datum)
+						</p>
+					</div>
+					<div class="card-footer bg-primary" style="text-align: center; color: white;">
+						<a asp-action="Details" asp-route-id="@ticket.Id" class="btn" style="background-color: #FF729F; color: white;">Kopen</a>
+					</div>
+				</div>
+	}
+</div>
+
+<div style="clear: both;" />
+
