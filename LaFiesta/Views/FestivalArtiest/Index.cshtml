@@ -1,0 +1,37 @@
+﻿@model LaFiesta.ViewModels.Lists.ListFestivalArtiestViewModel
+
+@{
+    ViewData["Title"] = "FestivalArtiest";
+}
+<p>
+    <a asp-action="Create">Create New FestivalArtiest</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Festivals[0].Naam)</th>
+        <th>Artiesten naam</th>
+@*        <th>@Html.DisplayNameFor(model => model.Festivals[0].FestivalArtiesten)</th>*@
+        <th>Delete</th>
+    </tr>
+    <tbody>
+        @foreach (var festivalArtiesten in Model.FestivalArtiesten)
+        {
+            <tr>
+                <td class="col-md-4 align-middle bodyBG">
+                    @Html.DisplayFor(model => festivalArtiesten.Festival.Naam)
+                </td>
+                <td class="col-md-4 align-middle bodyBG">
+                    @Html.DisplayFor(model => festivalArtiesten.Artiest.Voornaam) @Html.DisplayFor(model => festivalArtiesten.Artiest.Achternaam)
+                </td>
+                <td>
+                    <a class="button" asp-action="Delete" asp-route-id="@festivalArtiesten.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+
+</div>

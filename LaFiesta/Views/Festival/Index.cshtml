@@ -44,7 +44,7 @@
 						<a asp-action="Delete" asp-route-id="@festival.Id" style="color: white;">Delete</a>
 					</div>
 					<a asp-action="Details" asp-route-id="@festival.Id" class="btn" style="background-color: #FF729F; color: white;">Details</a>
-					<a asp-action="Index" asp-route-id="" class="btn" style="background-color: #FF729F; color: white;">Tickets</a>
+					<a asp-controller="Ticket" action="Index" asp-route-id="" class="btn" style="background-color: #FF729F; color: white;">Tickets</a>
 				</div>
 			</div>
 		}

@@ -31,6 +31,9 @@ namespace LaFiesta.Models
         public ICollection<TicketFestival> TicketsFestivals { get; set; }
 
         [Required]
+        [ForeignKey("CustomUsers")]
+        public string CustomUserId { get; set; }
+        [Required]
         public CustomUser CustomUser { get; set; }
     }
 }

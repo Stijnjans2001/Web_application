@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -136,8 +138,9 @@ namespace LaFiesta.Controllers
         }
         public IActionResult Details(int id)
         {
-            Festival festival = _context.Festivals.Where(f => f.Id == id).FirstOrDefault();
-            Locatie locatie = _context.Locaties.Where(d => d.Id == id).FirstOrDefault();
+            ICollection<FestivalArtiest> festaivalArtiesten = _context.FestivalArtiesten.Where(fa => fa.FestivalId == id).Include(a => a.Artiest).ToList();
+            Festival festival = _context.Festivals.Where(f => f.Id == id).Include(f => f.Locatie).FirstOrDefault();
+            
             if(festival != null)
             {
 				DetailFestivalViewModel vm = new DetailFestivalViewModel()
@@ -149,6 +152,7 @@ namespace LaFiesta.Controllers
 					MinimumLeeftijd = festival.MinimumLeeftijd,
 					Afbeelding = festival.Afbeelding,
                     Locatie = festival.Locatie,
+                    FestivalArtiesten = festival.FestivalArtiesten,
                 };
 				return View(vm);
 			}

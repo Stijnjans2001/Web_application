@@ -2,7 +2,7 @@
 
 namespace LaFiesta.Migrations
 {
-    public partial class AddedRightConnectionTickets : Migration
+    public partial class UserFixes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

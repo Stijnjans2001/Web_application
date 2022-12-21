@@ -23,5 +23,6 @@ namespace LaFiesta.ViewModels.Detail
         
         public string Afbeelding { get; set; }
         public Locatie Locatie { get; set; }
+        public ICollection<FestivalArtiest> FestivalArtiesten { get; set; }
     }
 }

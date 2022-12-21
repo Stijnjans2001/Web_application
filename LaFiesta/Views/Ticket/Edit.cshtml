@@ -1,0 +1,51 @@
+﻿@model LaFiesta.ViewModels.Edit.EditTicketViewModel
+
+@{
+    ViewData["Title"] = "Ticket aanpassen";
+}
+
+<h1 class="mt-5">@ViewData["Title"]</h1>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+    <div class="row mt-5">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Soort">@Html.DisplayNameFor(model => this.Model.Soort):</label>
+                <br />
+                <input asp-for="Soort" class="form-control" />
+                <span asp-validation-for="Soort" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aantal">@Html.DisplayNameFor(model => this.Model.Aantal):</label>
+                <br />
+                <input asp-for="Aantal" class="form-control" />
+                <span asp-validation-for="Aantal" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Datum">@Html.DisplayNameFor(model => this.Model.Datum):</label>
+                <input type="date" asp-for="Datum" class="form-control" />
+                <span asp-validation-for="Datum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prijs">@Html.DisplayNameFor(model => this.Model.Prijs):</label>
+                <br />
+                <input asp-for="Prijs" class="form-control" />
+                <span asp-validation-for="Prijs" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group ml-2">
+            <input type="submit" value="Aanpassen" class="btn" />
+            <a asp-action="Index" class="btn">Terug</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

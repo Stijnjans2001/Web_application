@@ -7,6 +7,9 @@
 <div class="text-center">
 	<h1 class="display-4">Tickets</h1>
 </div>
+<p>
+	<a asp-action="Create">Create New Ticket</a>
+</p>
 <div class="row justify-content-center">
 	@foreach (var ticket in Model.Tickets)
 	{	
@@ -15,7 +18,7 @@
 					<div class="card-body" style="background-color: #AB87FF;">
 						<h5 class="card-title" style="color: white; text-align: center;">@Html.DisplayFor(modelItem => ticket.Soort)</h5>
 						<p class="card-text" style="color: white;">
-							<strong>Id:</strong> 
+							<strong>Soort:</strong> 
 							<br>
 					@Html.DisplayFor(modelItem => ticket.Soort)
 							<br>

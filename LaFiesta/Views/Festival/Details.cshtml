@@ -9,7 +9,20 @@
 <img src="~/images/festivals/@Model.Afbeelding" alt="@Model.Afbeelding" style="height: 10%"/>
 <p>Minimum leeftijd: @Model.MinimumLeeftijd</p>
 <p>Locatie: @Model.Locatie.Straat @Model.Locatie.Huisnummer @Model.Locatie.Postcode @Model.Locatie.Plaats</p>
-<p>Datum: @Model.BeginDatum - @Model.EindDatum</p>
+
+<p>Datum: @Html.DisplayFor(Model => Model.BeginDatum) - @Html.DisplayFor(Model => Model.EindDatum)</p>
+
 <p>Omschrijving: @Model.Omschrijving</p>
+<p>
+	Artiesten: 
+	@foreach (var festivalArtiest in Model.FestivalArtiesten)
+	{
+		<ul>
+			<li>
+				@festivalArtiest.Artiest.Voornaam @festivalArtiest.Artiest.Achternaam
+			</li>
+		</ul>
+	}
+</p>
 
 @Html.ActionLink("Terug", "Index")

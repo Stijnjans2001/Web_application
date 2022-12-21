@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LaFiesta.Migrations
 {
     [DbContext(typeof(LaFiestaContext))]
-    [Migration("20221207115754_Added-Right-Connection-Tickets")]
-    partial class AddedRightConnectionTickets
+    [Migration("20221221141907_UserFixes")]
+    partial class UserFixes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

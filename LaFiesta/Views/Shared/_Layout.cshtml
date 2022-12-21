@@ -31,6 +31,14 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Ticket" asp-action="Index">Tickets</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-controller="FestivalArtiest" asp-action="Index">Festival/Artiest</a>
+                                <a class="dropdown-item" asp-controller="TicketFestival" asp-action="Index">Ticket/Festival</a>
+                            </div>
+
+                        </li>
 					</ul>
                     <partial name="_LoginPartial" />
                 </div>
