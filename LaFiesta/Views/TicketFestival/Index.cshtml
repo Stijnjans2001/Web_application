@@ -4,7 +4,7 @@
 	ViewData["Title"] = "TicketFestival";
 }
 <p>
-    <a asp-action="Create">Create New TicketFestival</a>
+    <a asp-action="Create" class="btn" style="background-color: #FF729F; color: white; text-align: center;">Create New TicketFestival</a>
 </p>
 <table class="table table-bordered table-striped">
     <tr>
@@ -16,7 +16,7 @@
     </tr>
     @foreach (var ticketFestival in Model.TicketFestivals)
     {
-            <tr>
+        <tr>
             <td>@ticketFestival.Id</td>
             <td>@ticketFestival.Festival.Naam</td>
             <td>@ticketFestival.Ticket.Soort</td>
@@ -24,6 +24,6 @@
             <td>
                 <a class="button" asp-action="Delete" asp-route-id="@ticketFestival.Id">Delete</a>
             </td>
-            </tr>
+        </tr>
     }
 </table>

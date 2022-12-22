@@ -15,7 +15,7 @@
                     <select asp-for="FestivalId" class="form-select" aria-label="Default select">
                         @foreach (var festival in Model.Festivals)
                         {
-                            <option value="@festival.Id">@Html.DisplayFor(modelItem => festival.Naam)</option>
+                            <option value="@festival.Id">@Html.DisplayFor(modelItem => festival.Naam) (@Html.DisplayFor(modelItem => festival.BeginDatum))</option>
                         }
                     </select>
                     <span asp-validation-for="FestivalId" class="text-danger"></span>
@@ -27,7 +27,7 @@
                     <select asp-for="TicketId" class="form-select" aria-label="Default select">
                         @foreach (var ticket in Model.Tickets)
                         {
-                            <option value="@ticket.Id">@Html.DisplayFor(modelItem => ticket.Soort)</option>
+                            <option value="@ticket.Id">@Html.DisplayFor(modelItem => ticket.Soort) (@Html.DisplayFor(modelItem => ticket.Datum))</option>
                         }
                     </select>
                     <span asp-validation-for="TicketId" class="text-danger"></span>

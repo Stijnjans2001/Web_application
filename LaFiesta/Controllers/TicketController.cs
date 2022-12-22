@@ -7,6 +7,7 @@ using LaFiesta.ViewModels.Delete;
 using LaFiesta.ViewModels.Detail;
 using LaFiesta.ViewModels.Edit;
 using LaFiesta.ViewModels.Lists;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace LaFiesta.Controllers
 {
     public class TicketController : Controller
     {
+        #region Maken context en index initialiseren
         private readonly LaFiestaContext _context;
 
         public TicketController(LaFiestaContext context)
@@ -32,13 +34,17 @@ namespace LaFiesta.Controllers
 
             return View(vm);
         }
+        #endregion
 
+        #region Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
+		[Authorize(Roles = "admin")]
+		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateTicketViewModel viewModel)
         {
@@ -51,13 +57,14 @@ namespace LaFiesta.Controllers
                     Datum = viewModel.Datum,
                     Aantal = viewModel.Aantal,
                     CustomUserId = "0debe25f-bbef-44f9-b0d6-e85de6da672d"
-				});
+                });
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(viewModel);
         }
+        #endregion
 
         public IActionResult Details(int id)
         {
@@ -74,6 +81,31 @@ namespace LaFiesta.Controllers
             return View(vm);
         }
 
+        #region Edit
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            Ticket ticket = _context.Tickets.Where(d => d.Id == id).FirstOrDefault();
+            if (ticket == null)
+                return NotFound();
+
+            EditTicketViewModel vm = new EditTicketViewModel()
+            {
+                Id = ticket.Id,
+                Datum = ticket.Datum,
+                Soort = ticket.Soort,
+                Prijs = ticket.Prijs,
+                Aantal = ticket.Aantal
+            };
+
+            return View(vm);
+        }
+
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EditTicketViewModel viewModel)
@@ -94,6 +126,7 @@ namespace LaFiesta.Controllers
                         Soort = viewModel.Soort,
                         Prijs = viewModel.Prijs,
                         Aantal = viewModel.Aantal,
+                        CustomUserId = "0debe25f-bbef-44f9-b0d6-e85de6da672d"
                     };
                     _context.Update(ticket);
                     await _context.SaveChangesAsync();
@@ -112,9 +145,12 @@ namespace LaFiesta.Controllers
                 return RedirectToAction("Index");
             }
             return View(viewModel);
-        }
+        } 
+        #endregion
 
-        public async Task<IActionResult> Delete(int? id)
+        #region Delete
+        [Authorize(Roles = "admin")]
+		public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -138,7 +174,8 @@ namespace LaFiesta.Controllers
             return View(viewModel);
         }
 
-        [HttpPost, ActionName("Delete")]
+		[Authorize(Roles = "admin")]
+		[HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
@@ -154,6 +191,7 @@ namespace LaFiesta.Controllers
                 ModelState.AddModelError("", "Ticket Not Found");
             }
             return View("Index", _context.Tickets.ToList());
-        }
+        } 
+        #endregion
     }
 }

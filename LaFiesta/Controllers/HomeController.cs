@@ -14,13 +14,8 @@ namespace LaFiesta.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 		private LaFiestaContext _context;
 
-		//public HomeController(ILogger<HomeController> logger)
-  //      {
-  //          _logger = logger;
-  //      }
 		public HomeController(LaFiestaContext context)
 		{
 			_context = context;
@@ -35,11 +30,6 @@ namespace LaFiesta.Controllers
 				Locaties = _context.Locaties.ToList()
 			};
 			return View(vm);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

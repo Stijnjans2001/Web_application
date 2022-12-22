@@ -7,10 +7,14 @@
 
 <div class="text-center">
 	<h1 class="display-4">Artiesten</h1>
+	@if (this.User.Identity.IsAuthenticated && User.IsInRole("admin"))
+	{
+		<p>
+			<a asp-action="Create" class="btn" style="background-color: #FF729F; color: white;">Create New Artist</a>
+		</p>
+	}
 </div>
-<p>
-	<a asp-action="Create">Create New Artist</a>
-</p>
+
 <div class="row justify-content-center">
 		@foreach (var artiest in Model.Artiesten)
 		{	
@@ -25,11 +29,14 @@
 						<br>
 						Genre: @Html.DisplayFor(modelItem => artiest.Genre)
 					</p>
-					<div style="text-align: center; color: white;">
-						<a asp-action="Edit" asp-route-id="@artiest.Id" style="color: white;">Edit</a>
-						|
-						<a asp-action="Delete" asp-route-id="@artiest.Id" style="color: white;">Delete</a>
-					</div>
+					@if (this.User.Identity.IsAuthenticated && User.IsInRole("admin"))
+					{
+						<div style="text-align: center; color: white;">
+							<a asp-action="Edit" asp-route-id="@artiest.Id" style="color: white;">Edit</a>
+							|
+							<a asp-action="Delete" asp-route-id="@artiest.Id" style="color: white;">Delete</a>
+						</div>
+					}
 				</div>
 				<div class="card-footer bg-primary" style="text-align: center; color: white;">
 					<a target="_blank" href="https://nl.wikipedia.org/wiki/@artiest.Voornaam&#95;@artiest.Achternaam" class="btn" style="background-color: #FF729F; color: white;">Meer details</a>

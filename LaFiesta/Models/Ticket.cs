@@ -22,7 +22,7 @@ namespace LaFiesta.Models
         public string Soort { get; set; }
 
         [Required]
-        public Decimal Prijs { get; set; }
+        public decimal Prijs { get; set; }
 
         [Required]
         public int Aantal { get; set; }

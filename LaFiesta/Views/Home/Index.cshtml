@@ -19,11 +19,14 @@
 					<br>
 					Genre: @Html.DisplayFor(modelItem => artiest.Genre)
 				</p>
-				<div style="text-align: center; color: white;">
-					<a asp-action="Edit" asp-route-id="@artiest.Id" style="color: white;">Edit</a>
-					|
-					<a asp-action="Delete" asp-route-id="@artiest.Id" style="color: white;">Delete</a>
-				</div>
+				@if (this.User.Identity.IsAuthenticated && User.IsInRole("admin"))
+				{
+					<div style="text-align: center; color: white;">
+						<a asp-controller="Artiest" asp-action="Edit" asp-route-id="@artiest.Id" style="color: white;">Edit</a>
+						|
+						<a asp-controller="Artiest" asp-action="Delete" asp-route-id="@artiest.Id" style="color: white;">Delete</a>
+					</div>
+				}
 			</div>
 			<div class="card-footer bg-primary" style="text-align: center; color: white;">
 				<a target="_blank" href="https://nl.wikipedia.org/wiki/@artiest.Voornaam&#95;@artiest.Achternaam" class="btn" style="background-color: #FF729F; color: white;">Meer details</a>
@@ -60,13 +63,16 @@
 				</p>
 			</div>
 			<div class="card-footer bg-primary" style="text-align: center; color: white;">
-				<div style="text-align: center;">
-					<a asp-action="Edit" asp-route-id="@festival.Id" style="color: white;">Edit</a>
-					|
-					<a asp-action="Delete" asp-route-id="@festival.Id" style="color: white;">Delete</a>
-				</div>
-				<a asp-action="Details" asp-route-id="@festival.Id" class="btn" style="background-color: #FF729F; color: white;">Details</a>
-				<a asp-action="Index" asp-route-id="" class="btn" style="background-color: #FF729F; color: white;">Tickets</a>
+				@if (this.User.Identity.IsAuthenticated && User.IsInRole("admin"))
+				{
+					<div style="text-align: center;">
+						<a asp-controller="Festival" asp-action="Edit" asp-route-id="@festival.Id" style="color: white;">Edit</a>
+						|
+						<a asp-controller="Festival" asp-action="Delete" asp-route-id="@festival.Id" style="color: white;">Delete</a>
+					</div>
+				}
+				<a asp-controller="Festival" asp-action="Details" asp-route-id="@festival.Id" class="btn" style="background-color: #FF729F; color: white;">Details</a>
+				<a asp-controller="Ticket" asp-action="Index" asp-route-id="" class="btn" style="background-color: #FF729F; color: white;">Tickets</a>
 			</div>
 		</div>
 	}

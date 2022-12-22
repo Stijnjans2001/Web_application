@@ -3,6 +3,7 @@ using LaFiesta.Models;
 using LaFiesta.ViewModels.Create;
 using LaFiesta.ViewModels.Delete;
 using LaFiesta.ViewModels.Lists;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -10,8 +11,10 @@ using System.Threading.Tasks;
 
 namespace LaFiesta.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class FestivalArtiestController : Controller
     {
+        #region Initialisatie en Index
         private readonly LaFiestaContext _context;
 
         public FestivalArtiestController(LaFiestaContext context)
@@ -31,7 +34,9 @@ namespace LaFiesta.Controllers
             };
             return View(vm);
         }
+        #endregion
 
+        #region Create
         public IActionResult Create()
         {
             CreateFestivalArtiestViewModel vm = new CreateFestivalArtiestViewModel()
@@ -63,7 +68,9 @@ namespace LaFiesta.Controllers
             }
             return View(viewModel);
         }
+        #endregion
 
+        #region Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -102,6 +109,7 @@ namespace LaFiesta.Controllers
                 ModelState.AddModelError("", "FestivalArtiest Not Found");
             }
             return View("Index", _context.FestivalArtiesten.ToList());
-        }
+        } 
+        #endregion
     }
 }

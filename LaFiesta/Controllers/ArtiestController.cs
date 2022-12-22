@@ -7,9 +7,11 @@ using LaFiesta.ViewModels.Delete;
 using LaFiesta.ViewModels.Detail;
 using LaFiesta.ViewModels.Edit;
 using LaFiesta.ViewModels.Lists;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +19,7 @@ namespace LaFiesta.Controllers
 {
     public class ArtiestController : Controller
     {
+        #region Initialisatie en Index
         private readonly LaFiestaContext _context;
 
         public ArtiestController(LaFiestaContext context)
@@ -34,12 +37,17 @@ namespace LaFiesta.Controllers
             return View(vm);
         }
 
-        public IActionResult Create()
+        #endregion
+
+        #region Create
+		[Authorize(Roles = "admin")]
+		public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
+		[Authorize(Roles = "admin")]
+		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateArtiestViewModel viewModel)
         {
@@ -60,7 +68,10 @@ namespace LaFiesta.Controllers
             }
             return View(viewModel);
         }
+        #endregion
 
+        #region Edit
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Edit(int? id)
         {
@@ -86,6 +97,7 @@ namespace LaFiesta.Controllers
             return View(vm);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EditArtiestViewModel viewModel)
@@ -127,8 +139,11 @@ namespace LaFiesta.Controllers
             }
             return View(viewModel);
         }
+		#endregion
 
-        public async Task<IActionResult> Delete(int? id)
+		#region Delete
+		[Authorize(Roles = "admin")]
+		public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -150,7 +165,8 @@ namespace LaFiesta.Controllers
             return View(viewModel);
         }
 
-        [HttpPost, ActionName("Delete")]
+		[Authorize(Roles = "admin")]
+		[HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
@@ -166,6 +182,7 @@ namespace LaFiesta.Controllers
                 ModelState.AddModelError("", "Artist Not Found");
             }
             return View("Index", _context.Artiesten.ToList());
-        }
+        } 
+        #endregion
     }
 }

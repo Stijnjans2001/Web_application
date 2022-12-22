@@ -4,14 +4,13 @@
     ViewData["Title"] = "FestivalArtiest";
 }
 <p>
-    <a asp-action="Create">Create New FestivalArtiest</a>
+    <a asp-action="Create" class="btn" style="background-color: #FF729F; color: white; text-align: center;">Create New FestivalArtiest</a>
 </p>
 
 <table class="table table-bordered table-striped">
     <tr>
         <th>@Html.DisplayNameFor(model => model.Festivals[0].Naam)</th>
         <th>Artiesten naam</th>
-@*        <th>@Html.DisplayNameFor(model => model.Festivals[0].FestivalArtiesten)</th>*@
         <th>Delete</th>
     </tr>
     <tbody>
