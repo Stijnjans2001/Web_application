@@ -41,7 +41,8 @@ namespace LaFiesta.Controllers
 		#endregion
 
 		#region Create
-		[Authorize(Roles = "admin")]
+		//Admin role cannot be given => authorize does not work.
+		//[Authorize(Roles = "admin")]
 		public IActionResult Create()
         {
             CreateFestivalViewModel vm = new CreateFestivalViewModel()
@@ -51,7 +52,8 @@ namespace LaFiesta.Controllers
             return View(vm);
         }
 
-		[Authorize(Roles = "admin")]
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
 		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateFestivalViewModel viewModel)
@@ -74,10 +76,11 @@ namespace LaFiesta.Controllers
             }
             return View(viewModel);
         }
-		#endregion
+        #endregion
 
-		#region Edit
-		[Authorize(Roles = "admin")]
+        #region Edit
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
 		[HttpGet]
         public IActionResult Edit(int? id)
         {
@@ -104,7 +107,8 @@ namespace LaFiesta.Controllers
             return View(vm);
         }
 
-		[Authorize(Roles = "admin")]
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
 		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EditFestivalViewModel viewModel)
@@ -179,8 +183,9 @@ namespace LaFiesta.Controllers
 			}           
         }
 
-		#region Delete
-		[Authorize(Roles = "admin")]
+        #region Delete
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
 		public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -204,7 +209,8 @@ namespace LaFiesta.Controllers
             return View(viewModel);
         }
 
-		[Authorize(Roles = "admin")]
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
 		[HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)

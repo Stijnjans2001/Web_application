@@ -6,51 +6,59 @@
 
 <div class="text-center">
 	<h1 class="display-4">Tickets</h1>
-	@if (this.User.Identity.IsAuthenticated && User.IsInRole("admin"))
+	@if (this.User.Identity.IsAuthenticated)
 	{
-		<p>
-			<a asp-action="Create" class="btn" style="background-color: #FF729F; color: white;">Create New Ticket</a>
-		</p>
+		@if (true) //Admin role cannot be given => authorize does not work. Workaround with if(true) not (User.IsInRole("admin"))
+		{
+			<p>
+				<a asp-action="Create" class="btn" style="background-color: #FF729F; color: white;">Create New Ticket</a>
+			</p>
+		}
+
 	}
 </div>
 
 <div class="row justify-content-center">
-	@foreach (var ticket in Model.Tickets)
+	@foreach (var ticketFestival in Model.TicketFestivals)
 	{	
 		<div class="card m-2 col-3 p-0">
 			<img src="~/images/tickets/dummy.png" class="card-img-top" alt="ticket" style="height: 10rem;">
 			<div class="card-body" style="background-color: #AB87FF;">
-				<h5 class="card-title" style="color: white; text-align: center;">@Html.DisplayFor(modelItem => ticket.Soort)</h5>
+				<h5 class="card-title" style="color: white; text-align: center;">@Html.DisplayFor(modelItem => ticketFestival.Festival.Naam)</h5>
 				<p class="card-text" style="color: white;">
+					<strong>Soort:</strong>
+					<br>
+					@Html.DisplayFor(modelItem => ticketFestival.Ticket.Soort)
+					<br>
 					<strong>Prijs:</strong>
 					<br>
-					@Html.DisplayFor(modelItem => ticket.Prijs)
+					@Html.DisplayFor(modelItem => ticketFestival.Ticket.Prijs)
 					<br>
 					<strong>Aantal:</strong> 
 					<br>
-					@Html.DisplayFor(modelItem => ticket.Aantal)
+					@Html.DisplayFor(modelItem => ticketFestival.Ticket.Aantal)
 					<br>
 					<strong>Datum:</strong>
 					<br>
-					@Html.DisplayFor(modelItem => ticket.Datum)
+					@Html.DisplayFor(modelItem => ticketFestival.Ticket.Datum)
 				</p>
+				@if (this.User.Identity.IsAuthenticated)
+				{
+					@if (true) //Admin role cannot be given => authorize does not work. Workaround with if(true) not (User.IsInRole("admin"))
+					{
+						<div style="text-align: center; color: white;">
+							<a asp-action="Edit" asp-route-id="@ticketFestival.Id" style="color: white;">Edit</a>
+							|
+							<a asp-action="Delete" asp-route-id="@ticketFestival.Id" style="color: white;">Delete</a>
+						</div>
+					}
+				}
 			</div>
 			@if (this.User.Identity.IsAuthenticated)
 			{
-				@if (User.IsInRole("user") || User.IsInRole("admin"))
-					{<div class="card-footer bg-primary" style="text-align: center; color: white;">
-				
-						@if (User.IsInRole("admin"))
-						{
-							<div style="text-align: center;">
-								<a asp-action="Edit" asp-route-id="@ticket.Id" style="color: white;">Edit</a>
-								|
-								<a asp-action="Delete" asp-route-id="@ticket.Id" style="color: white;">Delete</a>
-							</div>
-						}
-						<a asp-action="Details" asp-route-id="@ticket.Id" class="btn" style="background-color: #FF729F; color: white;">Kopen</a>
-					</div>
-				}
+				<div class="card-footer bg-primary" style="text-align: center; color: white;">
+					<a asp-action="Details" asp-route-id="@ticketFestival.Ticket.Id" class="btn" style="background-color: #FF729F; color: white;">Kopen</a>
+				</div>
 			}
 		</div>
 	}

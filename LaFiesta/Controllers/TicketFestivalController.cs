@@ -12,8 +12,9 @@ using System.Threading.Tasks;
 
 namespace LaFiesta.Controllers
 {
-	[Authorize(Roles = "admin")]
-	public class TicketFestivalController : Controller
+	//Admin role cannot be given => authorize does not work.
+    //[Authorize(Roles = "admin")]
+    public class TicketFestivalController : Controller
 	{
         #region Initialisatie en Index
         private readonly LaFiestaContext _context;

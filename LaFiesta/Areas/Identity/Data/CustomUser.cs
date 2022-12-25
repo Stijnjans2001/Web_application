@@ -7,7 +7,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LaFiesta.Areas.Identity.Data
 {
-	[Table("CustomUsers")]
 	public class CustomUser : IdentityUser
     {
         [Required]

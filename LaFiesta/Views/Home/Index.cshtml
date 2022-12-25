@@ -19,13 +19,16 @@
 					<br>
 					Genre: @Html.DisplayFor(modelItem => artiest.Genre)
 				</p>
-				@if (this.User.Identity.IsAuthenticated && User.IsInRole("admin"))
+				@if (this.User.Identity.IsAuthenticated)
 				{
-					<div style="text-align: center; color: white;">
-						<a asp-controller="Artiest" asp-action="Edit" asp-route-id="@artiest.Id" style="color: white;">Edit</a>
-						|
-						<a asp-controller="Artiest" asp-action="Delete" asp-route-id="@artiest.Id" style="color: white;">Delete</a>
-					</div>
+					@if (true) //Admin role cannot be given => authorize does not work. Workaround with if(true) not (User.IsInRole("admin"))
+					{
+						<div style="text-align: center; color: white;">
+							<a asp-controller="Artiest" asp-action="Edit" asp-route-id="@artiest.Id" style="color: white;">Edit</a>
+							|
+							<a asp-controller="Artiest" asp-action="Delete" asp-route-id="@artiest.Id" style="color: white;">Delete</a>
+						</div>
+					}
 				}
 			</div>
 			<div class="card-footer bg-primary" style="text-align: center; color: white;">
@@ -61,16 +64,19 @@
 					<br>
 					@Html.DisplayFor(modelItem => festival.Omschrijving)
 				</p>
+				@if (this.User.Identity.IsAuthenticated)
+				{
+					@if (true) //Admin role cannot be given => authorize does not work. Workaround with if(true) not (User.IsInRole("admin"))
+					{
+						<div style="text-align: center; color: white;">
+							<a asp-controller="Festival" asp-action="Edit" asp-route-id="@festival.Id" style="color: white;">Edit</a>
+							|
+							<a asp-controller="Festival" asp-action="Delete" asp-route-id="@festival.Id" style="color: white;">Delete</a>
+						</div>
+					}
+				}
 			</div>
 			<div class="card-footer bg-primary" style="text-align: center; color: white;">
-				@if (this.User.Identity.IsAuthenticated && User.IsInRole("admin"))
-				{
-					<div style="text-align: center;">
-						<a asp-controller="Festival" asp-action="Edit" asp-route-id="@festival.Id" style="color: white;">Edit</a>
-						|
-						<a asp-controller="Festival" asp-action="Delete" asp-route-id="@festival.Id" style="color: white;">Delete</a>
-					</div>
-				}
 				<a asp-controller="Festival" asp-action="Details" asp-route-id="@festival.Id" class="btn" style="background-color: #FF729F; color: white;">Details</a>
 				<a asp-controller="Ticket" asp-action="Index" asp-route-id="" class="btn" style="background-color: #FF729F; color: white;">Tickets</a>
 			</div>

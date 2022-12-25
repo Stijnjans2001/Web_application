@@ -16,7 +16,8 @@ using System.Threading.Tasks;
 
 namespace LaFiesta.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //Admin role cannot be given => authorize does not work
+    //[Authorize(Roles = "admin")]
     public class UserController : Controller
     {
         #region Initialisatie en index
@@ -34,7 +35,7 @@ namespace LaFiesta.Controllers
             {
                 Users = _userManager.Users.ToList()
             };
-            return View(viewModel);
+			return View(viewModel);
         } 
         #endregion
 
@@ -164,7 +165,9 @@ namespace LaFiesta.Controllers
             return View(vm);
         }
 
-        public async Task<IActionResult> GrantPermissions(GrantPermissionsViewModel vm)
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> GrantPermissions(GrantPermissionsViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -174,15 +177,11 @@ namespace LaFiesta.Controllers
                 {
                     IdentityResult result = await _userManager.AddToRoleAsync(user, role.Name);
                     if (result.Succeeded)
-                    {
                         return RedirectToAction("Index");
-                    }
                     else
                     {
                         foreach (IdentityError error in result.Errors)
-                        {
                             ModelState.AddModelError("", error.Description);
-                        }
                     }
                 }
                 else

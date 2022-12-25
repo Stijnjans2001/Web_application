@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace LaFiesta.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //Admin role cannot be given => authorize does not work.
+    //[Authorize(Roles = "admin")]
     public class FestivalArtiestController : Controller
     {
         #region Initialisatie en Index

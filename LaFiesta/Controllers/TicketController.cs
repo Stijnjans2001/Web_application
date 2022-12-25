@@ -29,7 +29,7 @@ namespace LaFiesta.Controllers
         {
             ListTicketViewModel vm = new ListTicketViewModel()
             {
-                Tickets = _context.Tickets.ToList()
+                TicketFestivals = _context.TicketFestivals.Include(tf => tf.Ticket).Include(tf => tf.Festival).ToList()
             };
 
             return View(vm);
@@ -37,14 +37,16 @@ namespace LaFiesta.Controllers
         #endregion
 
         #region Create
-        [Authorize(Roles = "admin")]
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-		[Authorize(Roles = "admin")]
-		[HttpPost]
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateTicketViewModel viewModel)
         {
@@ -53,11 +55,11 @@ namespace LaFiesta.Controllers
                 _context.Add(new Ticket()
                 {
                     Soort = viewModel.Soort,
-                    Prijs = viewModel.Prijs,
+                    Prijs = (decimal)viewModel.Prijs,
                     Datum = viewModel.Datum,
                     Aantal = viewModel.Aantal,
-                    CustomUserId = "0debe25f-bbef-44f9-b0d6-e85de6da672d"
-                });
+                    CustomUserId = "f125d676-450f-4831-aeae-982d77a6e4a4"
+				});
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -82,7 +84,8 @@ namespace LaFiesta.Controllers
         }
 
         #region Edit
-        [Authorize(Roles = "admin")]
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Edit(int? id)
         {
@@ -98,14 +101,15 @@ namespace LaFiesta.Controllers
                 Id = ticket.Id,
                 Datum = ticket.Datum,
                 Soort = ticket.Soort,
-                Prijs = ticket.Prijs,
+                Prijs = (decimal)ticket.Prijs,
                 Aantal = ticket.Aantal
             };
 
             return View(vm);
         }
 
-        [Authorize(Roles = "admin")]
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EditTicketViewModel viewModel)
@@ -124,10 +128,10 @@ namespace LaFiesta.Controllers
                         Id = viewModel.Id,
                         Datum = viewModel.Datum,
                         Soort = viewModel.Soort,
-                        Prijs = viewModel.Prijs,
+                        Prijs = (decimal)viewModel.Prijs,
                         Aantal = viewModel.Aantal,
-                        CustomUserId = "0debe25f-bbef-44f9-b0d6-e85de6da672d"
-                    };
+                        CustomUserId = "f125d676-450f-4831-aeae-982d77a6e4a4"
+					};
                     _context.Update(ticket);
                     await _context.SaveChangesAsync();
                 }
@@ -145,11 +149,12 @@ namespace LaFiesta.Controllers
                 return RedirectToAction("Index");
             }
             return View(viewModel);
-        } 
+        }
         #endregion
 
         #region Delete
-        [Authorize(Roles = "admin")]
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
 		public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -174,7 +179,8 @@ namespace LaFiesta.Controllers
             return View(viewModel);
         }
 
-		[Authorize(Roles = "admin")]
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
 		[HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)
