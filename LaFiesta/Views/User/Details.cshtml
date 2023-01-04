@@ -9,7 +9,7 @@
 <p>Id: @Model.Id</p>
 <p>Voornaam: @Model.Voornaam</p>
 <p>Achternaam: @Model.Achternaam</p>
-<p>Geboortedatum: @Model.Geboortedatum</p>
+<p>Geboortedatum: @Html.DisplayFor(modelItem => Model.Geboortedatum)</p>
 <p>Geslacht: @Model.Geslacht</p>
 
-@Html.ActionLink("Terug", "Index", "User")
+<a asp-action="Index" class="btn" style="background-color: #FF729F; color: white;">Terug</a>

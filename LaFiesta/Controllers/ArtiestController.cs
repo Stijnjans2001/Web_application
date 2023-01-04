@@ -37,16 +37,18 @@ namespace LaFiesta.Controllers
             return View(vm);
         }
 
-        #endregion
+		#endregion
 
-        #region Create
-		[Authorize(Roles = "admin")]
+		#region Create
+		//Admin role cannot be given => authorize does not work.
+		//[Authorize(Roles = "admin")]
 		public IActionResult Create()
         {
             return View();
         }
 
-		[Authorize(Roles = "admin")]
+		//Admin role cannot be given => authorize does not work.
+		//[Authorize(Roles = "admin")]
 		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateArtiestViewModel viewModel)
@@ -71,7 +73,8 @@ namespace LaFiesta.Controllers
         #endregion
 
         #region Edit
-        [Authorize(Roles = "admin")]
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Edit(int? id)
         {
@@ -97,7 +100,8 @@ namespace LaFiesta.Controllers
             return View(vm);
         }
 
-        [Authorize(Roles = "admin")]
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EditArtiestViewModel viewModel)
@@ -139,11 +143,12 @@ namespace LaFiesta.Controllers
             }
             return View(viewModel);
         }
-		#endregion
+        #endregion
 
-		#region Delete
-		[Authorize(Roles = "admin")]
-		public async Task<IActionResult> Delete(int? id)
+        #region Delete
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -165,8 +170,9 @@ namespace LaFiesta.Controllers
             return View(viewModel);
         }
 
-		[Authorize(Roles = "admin")]
-		[HttpPost, ActionName("Delete")]
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {

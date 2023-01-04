@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LaFiesta.Migrations
 {
     [DbContext(typeof(LaFiestaContext))]
-    [Migration("20221222131054_fix price")]
-    partial class fixprice
+    [Migration("20230104121044_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -4,13 +4,14 @@
 	ViewData["Title"] = "Index";
 }
 
-<h2>Gebruikers</h2>
-<p>
-	<a asp-action="Create">Create New</a>
-</p>
-<p>
-	<a asp-action="GrantPermissions" class="btn" style="background-color: #FF729F; color: white; text-align: center;">Change Roles</a>
-</p>
+<div class="text-center">
+	<h1 class="display-4">Gebruikers</h1>
+	<p>
+		<a asp-action="Create" class="btn" style="background-color: #FF729F; color: white; text-align: center;">Create New</a>
+		<a asp-action="GrantPermissions" class="btn" style="background-color: #FF729F; color: white; text-align: center;">Change Roles</a>
+	</p>
+</div>
+
 <table>
 	<thead>
 		<tr>

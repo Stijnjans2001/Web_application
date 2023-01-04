@@ -8,6 +8,7 @@ using LaFiesta.ViewModels.Detail;
 using LaFiesta.ViewModels.Edit;
 using LaFiesta.ViewModels.Lists;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -19,10 +20,12 @@ namespace LaFiesta.Controllers
     {
         #region Maken context en index initialiseren
         private readonly LaFiestaContext _context;
+        private readonly UserManager<CustomUser> _userManager;
 
-        public TicketController(LaFiestaContext context)
+        public TicketController(LaFiestaContext context, UserManager<CustomUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -58,7 +61,7 @@ namespace LaFiesta.Controllers
                     Prijs = (decimal)viewModel.Prijs,
                     Datum = viewModel.Datum,
                     Aantal = viewModel.Aantal,
-                    CustomUserId = "f125d676-450f-4831-aeae-982d77a6e4a4"
+                    CustomUserId = _userManager.GetUserId(HttpContext.User)
 				});
 
                 await _context.SaveChangesAsync();
@@ -130,7 +133,7 @@ namespace LaFiesta.Controllers
                         Soort = viewModel.Soort,
                         Prijs = (decimal)viewModel.Prijs,
                         Aantal = viewModel.Aantal,
-                        CustomUserId = "f125d676-450f-4831-aeae-982d77a6e4a4"
+                        CustomUserId = _userManager.GetUserId(HttpContext.User)
 					};
                     _context.Update(ticket);
                     await _context.SaveChangesAsync();

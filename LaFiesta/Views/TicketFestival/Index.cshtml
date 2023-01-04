@@ -3,9 +3,14 @@
 @{
 	ViewData["Title"] = "TicketFestival";
 }
-<p>
-    <a asp-action="Create" class="btn" style="background-color: #FF729F; color: white; text-align: center;">Create New TicketFestival</a>
-</p>
+
+<div class="text-center">
+    <h1 class="display-4">Ticket/Festival</h1>
+	<p>
+		<a asp-action="Create" class="btn" style="background-color: #FF729F; color: white; text-align: center;">Create New FestivalArtiest</a>
+	</p>
+</div>
+
 <table class="table table-bordered table-striped">
     <tr>
         <th>@Html.DisplayNameFor(model => model.TicketFestivals[0].Id)</th>
