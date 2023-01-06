@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,11 +30,12 @@ namespace LaFiesta
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
-            services.AddDbContext<LaFiestaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDBConnection")));
+            services.AddDbContext<LaFiestaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LaFiestaConnection")));
+            //services.AddDbContext<LaFiestaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDBConnection")));
             services.AddDefaultIdentity<CustomUser>().AddEntityFrameworkStores<LaFiestaContext>()
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<LaFiestaContext>();
+				.AddRoleManager<RoleManager<IdentityRole>>()
+				.AddEntityFrameworkStores<LaFiestaContext>();
             services.AddRazorPages();
             services.Configure<IdentityOptions>(options =>
             {
@@ -54,10 +56,10 @@ namespace LaFiesta
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCSDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+!?";
                 options.User.RequireUniqueEmail = false;
             });
-        }
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -69,10 +71,11 @@ namespace LaFiesta
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
+			app.UseRouting();
 
             app.UseAuthentication();
 
@@ -85,6 +88,29 @@ namespace LaFiesta
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            CreateRoles(serviceProvider).Wait();
+        }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            LaFiestaContext context = serviceProvider.GetRequiredService<LaFiestaContext>();
+
+            IdentityResult result;
+
+            bool roleCheck = await roleManager.RoleExistsAsync("user");
+            if (!roleCheck)
+            {
+                result = await roleManager.CreateAsync(new IdentityRole("user"));
+            }
+
+            roleCheck = await roleManager.RoleExistsAsync("admin");
+            if (!roleCheck)
+            {
+                result = await roleManager.CreateAsync(new IdentityRole("admin"));
+            }
+            context.SaveChanges();
         }
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LaFiesta.ViewModels.Edit
 {
-    public class EditArtiestlViewModel
+    public class EditArtiestViewModel
     {
         public int Id { get; set; }
 

@@ -1,0 +1,17 @@
+﻿@model LaFiesta.ViewModels.Delete.DeleteTicketViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h4>Are you sure you want to delete @Model.Soort met prijs: @Model.Prijs?</h4>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-route-id="@Model.Id" />
+    <p>
+        <input type="submit" value="Delete" class="btn" style="background-color: #FF729F; color: white;" />
+        <a asp-action="Index" class="btn" style="background-color: #FF729F; color: white;">Back to List</a>
+    </p>
+</form>

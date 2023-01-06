@@ -1,0 +1,71 @@
+﻿@model LaFiesta.ViewModels.Create.CreateFestivalViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>New Festival</h1>
+
+<h4>Create a new festival</h4>
+
+<form asp-action="Create">
+    <div class="row mt-5">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Afbeelding">@Html.DisplayNameFor(model => this.Model.Afbeelding):</label>
+                <br />
+                <input asp-for="Afbeelding" class="form-control" disabled/>
+                <span asp-validation-for="Afbeelding" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Naam">@Html.DisplayNameFor(model => this.Model.Naam):</label>
+                <input asp-for="Naam" class="form-control" />
+                <span asp-validation-for="Naam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinimumLeeftijd">@Html.DisplayNameFor(model => this.Model.MinimumLeeftijd):</label>
+                <input asp-for="MinimumLeeftijd" class="form-control"/>
+                <span asp-validation-for="MinimumLeeftijd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BeginDatum">@Html.DisplayNameFor(model => this.Model.BeginDatum):</label>
+                <input type="date" asp-for="BeginDatum" class="form-control" />
+                <span asp-validation-for="BeginDatum" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="EindDatum">@Html.DisplayNameFor(model => this.Model.EindDatum):</label>
+                <input type="date" asp-for="EindDatum" class="form-control" />
+                <span asp-validation-for="EindDatum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Omschrijving">@Html.DisplayNameFor(model => this.Model.Omschrijving):</label>
+                <input type="text" asp-for="Omschrijving" class="form-control" />
+                <span asp-validation-for="Omschrijving" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LocatieId">@Html.DisplayNameFor(model => this.Model.LocatieId):</label>
+                <select class="form-control" asp-for="LocatieId">
+                    @foreach (var locatie in Model.Locaties)
+                    {
+                        <option value="@locatie.Id">@Html.DisplayFor(modelItem => locatie.Straat) @Html.DisplayFor(modelItem => locatie.Huisnummer) @Html.DisplayFor(modelItem => locatie.Postcode) @Html.DisplayFor(modelItem => locatie.Plaats)</option>
+                    }
+                </select>
+                <span asp-validation-for="LocatieId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group ml-2">
+            <input type="submit" value="Create" class="btn" style="background-color: #FF729F; color: white;" />
+            <a asp-action="Index" class="btn" style="background-color: #FF729F; color: white;">Terug naar lijst</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

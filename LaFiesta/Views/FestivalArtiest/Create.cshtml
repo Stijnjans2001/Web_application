@@ -1,0 +1,42 @@
+﻿@model LaFiesta.ViewModels.Create.CreateFestivalArtiestViewModel
+
+@{
+    ViewData["Title"] = "Artiesten per Festival aanmaken";
+}
+
+<h1 class="mt-5">@ViewData["Title"]</h1>
+
+<div class="row">
+        <form asp-action="Create" class="needs-validation" novalidate>
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="ArtiestId" class="control-label">Artiest</label><br />
+                        <select asp-for="ArtiestId" class="form-select" aria-label="Default select">
+                            @foreach (var artiest in Model.Artiesten)
+                            {
+                                <option value="@artiest.Id">@Html.DisplayFor(modelItem => artiest.Voornaam) @Html.DisplayFor(modelItem => artiest.Achternaam)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="ArtiestId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="FestivalId" class="control-label">Festival</label><br />
+                        <select asp-for="FestivalId" class="form-select" aria-label="Default select">
+                            @foreach (var festival in Model.Festivals)
+                            {
+                                <option value="@festival.Id">@Html.DisplayFor(modelItem => festival.Naam)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="FestivalId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group ml-2">
+            <input type="submit" value="Create" class="btn" style="background-color: #FF729F; color: white;" />
+            <a asp-action="Index" class="btn" style="background-color: #FF729F; color: white;">Terug naar lijst</a>
+        </div>
+        </form>
+</div>

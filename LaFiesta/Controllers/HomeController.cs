@@ -1,5 +1,8 @@
-﻿using LaFiesta.Models;
+﻿using LaFiesta.Data;
+using LaFiesta.Models;
+using LaFiesta.ViewModels.Lists;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,21 +14,22 @@ namespace LaFiesta.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+		private LaFiestaContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+		public HomeController(LaFiestaContext context)
+		{
+			_context = context;
+		}
 
-        public IActionResult Index()
+		public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+			ListHomeViewModel vm = new ListHomeViewModel()
+			{
+				Artiesten = _context.Artiesten.ToList(),
+				Festivals = _context.Festivals.ToList(),
+				Locaties = _context.Locaties.ToList()
+			};
+			return View(vm);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

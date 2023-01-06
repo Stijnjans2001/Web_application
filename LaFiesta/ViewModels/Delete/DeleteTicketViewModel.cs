@@ -1,5 +1,5 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace LaFiesta.ViewModels.Delete
 {
@@ -13,7 +13,7 @@ namespace LaFiesta.ViewModels.Delete
         public string Soort { get; set; }
 
         public decimal Prijs { get; set; }
-        
+
         public int Aantal { get; set; }
     }
 }

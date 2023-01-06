@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LaFiesta.Areas.Identity.Data
 {
-    public class CustomUser : IdentityUser
+	public class CustomUser : IdentityUser
     {
         [Required]
         [PersonalData]
@@ -22,7 +23,8 @@ namespace LaFiesta.Areas.Identity.Data
 
         [Required]
         [PersonalData]
-        public DateTime Geboortedatum { get; set; }
+		[DataType(DataType.Date)]
+		public DateTime Geboortedatum { get; set; }
 
         [Required]
         public ICollection<Ticket> Ticket { get; set; }

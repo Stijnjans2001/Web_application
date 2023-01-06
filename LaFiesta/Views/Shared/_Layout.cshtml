@@ -28,9 +28,27 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Artiest" asp-action="Index">Artiesten</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Ticket" asp-action="Index">Tickets</a>
+                        </li>
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            @if (true) //Admin role cannot be given => authorize does not work. Workaround with if(true) not (User.IsInRole("admin"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" asp-controller="FestivalArtiest" asp-action="Index">Festival/Artiest</a>
+                                        <a class="dropdown-item" asp-controller="TicketFestival" asp-action="Index">Ticket/Festival</a>
+                                        <a class="dropdown-item" asp-controller="User" asp-action="Index">Gebruikers</a>
+                                    </div>
+                                </li>
+                            }
+                        }
+                        
 					</ul>
-                    <partial name="_LoginPartial" />
-                </div>
+				</div>
+                <partial name="_LoginPartial" style="float: right" />
             </div>
         </nav>
     </header>
@@ -42,7 +60,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - LaFiesta - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - LaFiesta
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

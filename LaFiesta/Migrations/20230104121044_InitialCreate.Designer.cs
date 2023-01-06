@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LaFiesta.Migrations
 {
     [DbContext(typeof(LaFiestaContext))]
-    [Migration("20221116132526_AddIdentitySchema")]
-    partial class AddIdentitySchema
+    [Migration("20230104121044_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,6 +21,86 @@ namespace LaFiesta.Migrations
                 .HasAnnotation("ProductVersion", "3.1.30")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("LaFiesta.Areas.Identity.Data.CustomUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Achternaam")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("Geboortedatum")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Geslacht")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Voornaam")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
 
             modelBuilder.Entity("LaFiesta.Models.Artiest", b =>
                 {
@@ -36,9 +116,6 @@ namespace LaFiesta.Migrations
                     b.Property<string>("Afbeelding")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ArtiestId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("Geboortedatum")
                         .HasColumnType("datetime2");
@@ -56,8 +133,6 @@ namespace LaFiesta.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ArtiestId");
 
                     b.ToTable("Artiest");
                 });
@@ -79,9 +154,6 @@ namespace LaFiesta.Migrations
                     b.Property<DateTime>("EindDatum")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FestivalId")
-                        .HasColumnType("int");
-
                     b.Property<int>("LocatieId")
                         .HasColumnType("int");
 
@@ -97,8 +169,6 @@ namespace LaFiesta.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FestivalId");
 
                     b.HasIndex("LocatieId");
 
@@ -138,9 +208,6 @@ namespace LaFiesta.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LocatieId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Plaats")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -155,8 +222,6 @@ namespace LaFiesta.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LocatieId");
-
                     b.ToTable("Locatie");
                 });
 
@@ -170,6 +235,10 @@ namespace LaFiesta.Migrations
                     b.Property<int>("Aantal")
                         .HasColumnType("int");
 
+                    b.Property<string>("CustomUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("Datum")
                         .HasColumnType("datetime2");
 
@@ -180,12 +249,9 @@ namespace LaFiesta.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TicketId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("TicketId");
+                    b.HasIndex("CustomUserId");
 
                     b.ToTable("Ticket");
                 });
@@ -261,71 +327,6 @@ namespace LaFiesta.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -412,21 +413,10 @@ namespace LaFiesta.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("LaFiesta.Models.Artiest", b =>
-                {
-                    b.HasOne("LaFiesta.Models.Artiest", null)
-                        .WithMany("Artiesten")
-                        .HasForeignKey("ArtiestId");
-                });
-
             modelBuilder.Entity("LaFiesta.Models.Festival", b =>
                 {
-                    b.HasOne("LaFiesta.Models.Festival", null)
-                        .WithMany("Festivals")
-                        .HasForeignKey("FestivalId");
-
                     b.HasOne("LaFiesta.Models.Locatie", "Locatie")
-                        .WithMany()
+                        .WithMany("Festivals")
                         .HasForeignKey("LocatieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -435,42 +425,37 @@ namespace LaFiesta.Migrations
             modelBuilder.Entity("LaFiesta.Models.FestivalArtiest", b =>
                 {
                     b.HasOne("LaFiesta.Models.Artiest", "Artiest")
-                        .WithMany()
+                        .WithMany("FestivalArtiesten")
                         .HasForeignKey("ArtiestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LaFiesta.Models.Festival", "Festival")
-                        .WithMany()
+                        .WithMany("FestivalArtiesten")
                         .HasForeignKey("FestivalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LaFiesta.Models.Locatie", b =>
-                {
-                    b.HasOne("LaFiesta.Models.Locatie", null)
-                        .WithMany("Locaties")
-                        .HasForeignKey("LocatieId");
-                });
-
             modelBuilder.Entity("LaFiesta.Models.Ticket", b =>
                 {
-                    b.HasOne("LaFiesta.Models.Ticket", null)
-                        .WithMany("Tickets")
-                        .HasForeignKey("TicketId");
+                    b.HasOne("LaFiesta.Areas.Identity.Data.CustomUser", "CustomUser")
+                        .WithMany("Ticket")
+                        .HasForeignKey("CustomUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LaFiesta.Models.TicketFestival", b =>
                 {
                     b.HasOne("LaFiesta.Models.Festival", "Festival")
-                        .WithMany()
+                        .WithMany("TicketFestivals")
                         .HasForeignKey("FestivalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LaFiesta.Models.Ticket", "Ticket")
-                        .WithMany()
+                        .WithMany("TicketsFestivals")
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -487,7 +472,7 @@ namespace LaFiesta.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("LaFiesta.Areas.Identity.Data.CustomUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -496,7 +481,7 @@ namespace LaFiesta.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("LaFiesta.Areas.Identity.Data.CustomUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -511,7 +496,7 @@ namespace LaFiesta.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("LaFiesta.Areas.Identity.Data.CustomUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -520,7 +505,7 @@ namespace LaFiesta.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("LaFiesta.Areas.Identity.Data.CustomUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

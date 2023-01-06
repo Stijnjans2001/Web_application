@@ -247,14 +247,9 @@ namespace LaFiesta.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TicketId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CustomUserId");
-
-                    b.HasIndex("TicketId");
 
                     b.ToTable("Ticket");
                 });
@@ -447,10 +442,6 @@ namespace LaFiesta.Migrations
                         .HasForeignKey("CustomUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LaFiesta.Models.Ticket", null)
-                        .WithMany("Tickets")
-                        .HasForeignKey("TicketId");
                 });
 
             modelBuilder.Entity("LaFiesta.Models.TicketFestival", b =>
@@ -462,7 +453,7 @@ namespace LaFiesta.Migrations
                         .IsRequired();
 
                     b.HasOne("LaFiesta.Models.Ticket", "Ticket")
-                        .WithMany()
+                        .WithMany("TicketsFestivals")
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

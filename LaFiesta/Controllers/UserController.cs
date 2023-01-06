@@ -1,23 +1,32 @@
 ﻿using LaFiesta.Areas.Identity.Data;
+using LaFiesta.ViewModels;
 using LaFiesta.ViewModels.Create;
 using LaFiesta.ViewModels.Delete;
 using LaFiesta.ViewModels.Detail;
 using LaFiesta.ViewModels.Lists;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 
 namespace LaFiesta.Controllers
 {
+    //Admin role cannot be given => authorize does not work
+    //[Authorize(Roles = "admin")]
     public class UserController : Controller
     {
+        #region Initialisatie en index
         private UserManager<CustomUser> _userManager;
-        public UserController(UserManager<CustomUser> userManager) 
+        private RoleManager<IdentityRole> _roleManager;
+        public UserController(UserManager<CustomUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -26,8 +35,9 @@ namespace LaFiesta.Controllers
             {
                 Users = _userManager.Users.ToList()
             };
-            return View(viewModel);
-        }
+			return View(viewModel);
+        } 
+        #endregion
 
         public IActionResult Details(string id)
         {
@@ -54,6 +64,7 @@ namespace LaFiesta.Controllers
             }
         }
 
+        #region Create
         public IActionResult Create()
         {
             return View();
@@ -65,7 +76,7 @@ namespace LaFiesta.Controllers
         {
             if (ModelState.IsValid)
             {
-                CustomUser user = new CustomUser() 
+                CustomUser user = new CustomUser()
                 {
                     UserName = viewModel.Email,
                     Email = viewModel.Email,
@@ -90,8 +101,9 @@ namespace LaFiesta.Controllers
             }
             return View(viewModel);
         }
+        #endregion
 
-        //Deleten van een user werkt niet
+        #region Delete
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -114,16 +126,6 @@ namespace LaFiesta.Controllers
             return View(viewModel);
         }
 
-        
-        /*[HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-         public async Task<IActionResult> DeleteConfirmed(string id)
-         {
-            CustomUser user = await _userManager.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
-            _userManager.Users.Remove(user);
-            await _userManager.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-         }*/
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
@@ -150,7 +152,46 @@ namespace LaFiesta.Controllers
             }
             return View("Index", _userManager.Users.ToList());
         }
+        #endregion
 
+        #region GrantPermissions
+        public IActionResult GrantPermissions()
+        {
+            GrantPermissionsViewModel vm = new GrantPermissionsViewModel()
+            {
+                Users = new SelectList(_userManager.Users.ToList(), "Id", "UserName"),
+                Roles = new SelectList(_roleManager.Roles.ToList(), "Id", "Name")
+            };
+            return View(vm);
+        }
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> GrantPermissions(GrantPermissionsViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                CustomUser user = await _userManager.FindByIdAsync(vm.UserId);
+                IdentityRole role = await _roleManager.FindByIdAsync(vm.RoleId);
+                if (user != null && role != null)
+                {
+                    IdentityResult result = await _userManager.AddToRoleAsync(user, role.Name);
+                    if (result.Succeeded)
+                        return RedirectToAction("Index");
+                    else
+                    {
+                        foreach (IdentityError error in result.Errors)
+                            ModelState.AddModelError("", error.Description);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "User or role Not Found!");
+                }
+            }
+            return View(vm);
+        } 
+        #endregion
     }
 
 }

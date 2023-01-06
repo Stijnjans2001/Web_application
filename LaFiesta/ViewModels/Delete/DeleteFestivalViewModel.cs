@@ -1,5 +1,8 @@
-﻿using System;
+﻿using LaFiesta.Models;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LaFiesta.ViewModels.Delete
 {
@@ -20,5 +23,7 @@ namespace LaFiesta.ViewModels.Delete
         public int MinimumLeeftijd { get; set; }
 
         public string Afbeelding { get; set; }
+
+		public ICollection<Locatie> Locaties { get; set; }
     }
 }

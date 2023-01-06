@@ -1,0 +1,14 @@
+﻿@model LaFiesta.ViewModels.Detail.DetailTicketViewModel
+
+@{
+	ViewData["Title"] = "Details";
+}
+<p style="font-size: xx-large; font-weight: bolder">
+	<strong>Bedankt om dit ticket te kopen!</strong>
+</p>
+<h3>@Model.Soort</h3>
+<p>Minimum leeftijd: @Model.Prijs</p>
+<p>Aantal: 1</p>
+<p>Datum: @Html.DisplayFor(Model => Model.Datum)</p>
+
+<a asp-action="Index" class="btn" style="background-color: #FF729F; color: white;">Terug</a>

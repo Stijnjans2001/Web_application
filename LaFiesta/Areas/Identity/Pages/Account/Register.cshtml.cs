@@ -88,6 +88,7 @@ namespace LaFiesta.Areas.Identity.Pages.Account
             {
                 var user = new CustomUser {
                     UserName = Input.Email,
+                    Email = Input.Email,
                     Achternaam = Input.Achternaam,
                     Geboortedatum = Input.Geboortedatum,
                     Geslacht = Input.Geslacht,

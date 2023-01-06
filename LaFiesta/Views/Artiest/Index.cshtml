@@ -1,17 +1,54 @@
-﻿@{
+﻿@model LaFiesta.ViewModels.Lists.ListArtiestViewModel
+
+@{
     ViewData["Title"] = "Artiest";
 }
 
+
 <div class="text-center">
-    <h1 class="display-4">Artiest</h1>
+	<h1 class="display-4">Artiesten</h1>
+	@if (this.User.Identity.IsAuthenticated)
+	{
+		@if (true) //Admin role cannot be given => authorize does not work. Workaround with if(true) not (User.IsInRole("admin"))
+		{
+			<p>
+				<a asp-action="Create" class="btn" style="background-color: #FF729F; color: white;">Create New Artist</a>
+			</p>
+		}
+	}
 </div>
 
-
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="~/img/skyline.jpg" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
+<div class="row justify-content-center">
+		@foreach (var artiest in Model.Artiesten)
+		{	
+			<div class="card m-2 col-3 p-0">
+				<img src="~/images/artiesten/@artiest.Afbeelding" class="card-img-top" alt="@artiest.Afbeelding" style="height: 70%;">
+				<div class="card-body" style="background-color: #AB87FF;">
+					<h5 class="card-title" style="color: white; text-align: center;">@Html.DisplayFor(modelItem => artiest.Voornaam) @Html.DisplayFor(modelItem => artiest.Achternaam)</h5>
+					<p class="card-text" style="color: white;">
+						Geslacht: @Html.DisplayFor(modelItem => artiest.Geslacht)
+						<br>
+						Geboortedatum: @Html.DisplayFor(modelItem => artiest.Geboortedatum)
+						<br>
+						Genre: @Html.DisplayFor(modelItem => artiest.Genre)
+					</p>
+					@if (this.User.Identity.IsAuthenticated)
+					{
+						@if (true) //Admin role cannot be given => authorize does not work. Workaround with if(true) not (User.IsInRole("admin"))
+						{
+							<div style="text-align: center; color: white;">
+								<a asp-action="Edit" asp-route-id="@artiest.Id" style="color: white;">Edit</a>
+								|
+								<a asp-action="Delete" asp-route-id="@artiest.Id" style="color: white;">Delete</a>
+							</div>
+						}
+					}
+				</div>
+				<div class="card-footer bg-primary" style="text-align: center; color: white;">
+					<a target="_blank" href="https://nl.wikipedia.org/wiki/@artiest.Voornaam&#95;@artiest.Achternaam" class="btn" style="background-color: #FF729F; color: white;">Meer details</a>
+				</div>
+			</div>
+		}
 </div>
+
+<div style="clear: both;"/>

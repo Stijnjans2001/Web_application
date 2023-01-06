@@ -1,7 +1,66 @@
-﻿@{
-    ViewData["Title"] = "Festival";
+﻿@model LaFiesta.ViewModels.Lists.ListFestivalViewModel
+
+@{
+	ViewData["Title"] = "Festival";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Festival</h1>
+<div class="container" style="align-content:center;">
+	<div class="text-center">
+		<h1 class="display-4">Festivals</h1>
+		@if (this.User.Identity.IsAuthenticated)
+		{
+			@if (true) //Admin role cannot be given => authorize does not work. Workaround with if(true) not (User.IsInRole("admin"))
+			{
+				<p>
+					<a asp-action="Create" class="btn" style="background-color: #FF729F; color: white;">Create New Festival</a>
+				</p>
+			}
+
+		}
+	</div>
+	
+	<div class="row justify-content-center">
+			@foreach (var festival in Model.Festivals)
+			{	
+				<div class="card m-2 col-3 p-0">
+					<img src="~/images/festivals/@festival.Afbeelding" class="card-img-top" alt="@festival.Afbeelding" style="height: 10rem;">
+					<div class="card-body" style="background-color: #AB87FF;">
+						<h5 class="card-title" style="color: white; text-align: center;">@Html.DisplayFor(modelItem => festival.Naam)</h5>
+						<p class="card-text" style="color: white;">
+							<strong>Minimum leeftijd:</strong> 
+							<br>
+							@Html.DisplayFor(modelItem => festival.MinimumLeeftijd)
+							<br>
+							<strong>Locatie:</strong>
+							<br>
+							@Html.DisplayFor(modelItem => festival.Locatie.Straat) @Html.DisplayFor(modelItem => festival.Locatie.Huisnummer) @Html.DisplayFor(modelItem => festival.Locatie.Postcode) @Html.DisplayFor(modelItem => festival.Locatie.Plaats)
+							<br>
+							<strong>Datum:</strong> 
+							<br>
+							@Html.DisplayFor(modelItem => festival.BeginDatum) - @Html.DisplayFor(modelItem => festival.EindDatum)
+							<br>
+							<strong>Omschrijving:</strong>
+							<br>
+							@Html.DisplayFor(modelItem => festival.Omschrijving)
+						</p>
+						@if (this.User.Identity.IsAuthenticated)
+						{
+							@if (true) //Admin role cannot be given => authorize does not work. Workaround with if(true) not (User.IsInRole("admin"))
+							{
+								<div style="text-align: center; color: white;">
+									<a asp-controller="Festival" asp-action="Edit" asp-route-id="@festival.Id" style="color: white;">Edit</a>
+									|
+									<a asp-controller="Festival" asp-action="Delete" asp-route-id="@festival.Id" style="color: white;">Delete</a>
+								</div>
+							}
+						}
+					</div>
+					<div class="card-footer bg-primary" style="text-align: center; color: white;">
+						<a asp-action="Details" asp-route-id="@festival.Id" class="btn" style="background-color: #FF729F; color: white;">Details</a>
+						<a asp-controller="Ticket" action="Index" asp-route-id="" class="btn" style="background-color: #FF729F; color: white;">Tickets</a>
+					</div>
+				</div>
+			}
+	</div>
 </div>
+<div style="clear: both;" />

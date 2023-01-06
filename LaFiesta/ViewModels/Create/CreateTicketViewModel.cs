@@ -1,10 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace LaFiesta.ViewModels.Create
 {
     public class CreateTicketViewModel
     {
+        public int Id { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime Datum { get; set; }
 

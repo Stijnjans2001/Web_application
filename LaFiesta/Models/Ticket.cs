@@ -15,20 +15,23 @@ namespace LaFiesta.Models
         public int Id { get; set; }
 
         [Required]
-        public DateTime Datum { get; set; }
+		[DataType(DataType.Date)]
+		public DateTime Datum { get; set; }
 
         [Required]
         public string Soort { get; set; }
 
         [Required]
-        public Decimal Prijs { get; set; }
+        public decimal Prijs { get; set; }
 
         [Required]
         public int Aantal { get; set; }
 
         [Required]
-        public ICollection<Ticket> Tickets { get; set; }
+        public ICollection<TicketFestival> TicketsFestivals { get; set; }
 
+        [Required]
+        public string CustomUserId { get; set; }
         [Required]
         public CustomUser CustomUser { get; set; }
     }
