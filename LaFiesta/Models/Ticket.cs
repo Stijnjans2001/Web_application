@@ -22,7 +22,7 @@ namespace LaFiesta.Models
         public string Soort { get; set; }
 
         [Required]
-        public Decimal Prijs { get; set; }
+        public decimal Prijs { get; set; }
 
         [Required]
         public int Aantal { get; set; }
@@ -30,6 +30,8 @@ namespace LaFiesta.Models
         [Required]
         public ICollection<TicketFestival> TicketsFestivals { get; set; }
 
+        [Required]
+        public string CustomUserId { get; set; }
         [Required]
         public CustomUser CustomUser { get; set; }
     }

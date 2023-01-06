@@ -1,4 +1,4 @@
-﻿@model LaFiesta.ViewModels.Delete.DeleteArtiestViewModel
+﻿@model LaFiesta.ViewModels.Delete.DeleteTicketViewModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -6,7 +6,7 @@
 
 <h1>Delete</h1>
 
-<h4>Are you sure you want to delete @Model.Voornaam @Model.Achternaam</h4>
+<h4>Are you sure you want to delete @Model.Soort met prijs: @Model.Prijs?</h4>
 
 <form asp-action="Delete">
     <input type="hidden" asp-route-id="@Model.Id" />

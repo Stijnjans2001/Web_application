@@ -14,7 +14,7 @@ namespace LaFiesta.Data
         public DbSet<Artiest> Artiesten { get; set; }
         public DbSet<Festival> Festivals { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<FestivalArtiest> FestivalArtiests { get; set; }
+        public DbSet<FestivalArtiest> FestivalArtiesten { get; set; }
         public DbSet<Locatie> Locaties { get; set; }
         public DbSet<TicketFestival> TicketFestivals { get; set; }
         public DbSet<CustomUser> Users { get; set; }

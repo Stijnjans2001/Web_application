@@ -7,9 +7,11 @@ using LaFiesta.ViewModels.Delete;
 using LaFiesta.ViewModels.Detail;
 using LaFiesta.ViewModels.Edit;
 using LaFiesta.ViewModels.Lists;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +19,7 @@ namespace LaFiesta.Controllers
 {
     public class ArtiestController : Controller
     {
+        #region Initialisatie en Index
         private readonly LaFiestaContext _context;
 
         public ArtiestController(LaFiestaContext context)
@@ -34,12 +37,19 @@ namespace LaFiesta.Controllers
             return View(vm);
         }
 
-        public IActionResult Create()
+		#endregion
+
+		#region Create
+		//Admin role cannot be given => authorize does not work.
+		//[Authorize(Roles = "admin")]
+		public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
+		//Admin role cannot be given => authorize does not work.
+		//[Authorize(Roles = "admin")]
+		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateArtiestViewModel viewModel)
         {
@@ -60,7 +70,11 @@ namespace LaFiesta.Controllers
             }
             return View(viewModel);
         }
+        #endregion
 
+        #region Edit
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Edit(int? id)
         {
@@ -86,6 +100,8 @@ namespace LaFiesta.Controllers
             return View(vm);
         }
 
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EditArtiestViewModel viewModel)
@@ -127,7 +143,11 @@ namespace LaFiesta.Controllers
             }
             return View(viewModel);
         }
+        #endregion
 
+        #region Delete
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -150,6 +170,8 @@ namespace LaFiesta.Controllers
             return View(viewModel);
         }
 
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)
@@ -166,6 +188,7 @@ namespace LaFiesta.Controllers
                 ModelState.AddModelError("", "Artist Not Found");
             }
             return View("Index", _context.Artiesten.ToList());
-        }
+        } 
+        #endregion
     }
 }

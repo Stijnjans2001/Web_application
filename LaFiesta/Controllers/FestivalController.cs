@@ -6,10 +6,13 @@ using LaFiesta.ViewModels.Delete;
 using LaFiesta.ViewModels.Detail;
 using LaFiesta.ViewModels.Edit;
 using LaFiesta.ViewModels.Lists;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +20,7 @@ namespace LaFiesta.Controllers
 {
     public class FestivalController : Controller
     {
+        #region Initialisatie en Index
         private readonly LaFiestaContext _context;
 
         public FestivalController(LaFiestaContext context)
@@ -34,22 +38,28 @@ namespace LaFiesta.Controllers
 
             return View(vm);
         }
+		#endregion
 
+		#region Create
+		//Admin role cannot be given => authorize does not work.
+		//[Authorize(Roles = "admin")]
 		public IActionResult Create()
-		{
+        {
             CreateFestivalViewModel vm = new CreateFestivalViewModel()
             {
                 Locaties = _context.Locaties.ToList()
             };
-			return View(vm);
-		}
+            return View(vm);
+        }
 
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
 		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create(CreateFestivalViewModel viewModel)
-		{
-			if (ModelState.IsValid)
-			{
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(CreateFestivalViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
                 _context.Add(new Festival()
                 {
                     Naam = viewModel.Naam,
@@ -61,12 +71,17 @@ namespace LaFiesta.Controllers
                     Afbeelding = "dummy.jpg",
                 });
 
-				await _context.SaveChangesAsync();
-				return RedirectToAction(nameof(Index));
-			}
-			return View(viewModel);
-		}
-        [HttpGet]
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(viewModel);
+        }
+        #endregion
+
+        #region Edit
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
+		[HttpGet]
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -92,7 +107,9 @@ namespace LaFiesta.Controllers
             return View(vm);
         }
 
-        [HttpPost]
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
+		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EditFestivalViewModel viewModel)
         {
@@ -133,11 +150,14 @@ namespace LaFiesta.Controllers
                 return RedirectToAction("Index");
             }
             return View(viewModel);
-        }
+        } 
+        #endregion
+
         public IActionResult Details(int id)
         {
-            Festival festival = _context.Festivals.Where(f => f.Id == id).FirstOrDefault();
-            Locatie locatie = _context.Locaties.Where(d => d.Id == id).FirstOrDefault();
+            ICollection<FestivalArtiest> festaivalArtiesten = _context.FestivalArtiesten.Where(fa => fa.FestivalId == id).Include(a => a.Artiest).ToList();
+            Festival festival = _context.Festivals.Where(f => f.Id == id).Include(f => f.Locatie).FirstOrDefault();
+            
             if(festival != null)
             {
 				DetailFestivalViewModel vm = new DetailFestivalViewModel()
@@ -149,6 +169,7 @@ namespace LaFiesta.Controllers
 					MinimumLeeftijd = festival.MinimumLeeftijd,
 					Afbeelding = festival.Afbeelding,
                     Locatie = festival.Locatie,
+                    FestivalArtiesten = festival.FestivalArtiesten,
                 };
 				return View(vm);
 			}
@@ -162,7 +183,10 @@ namespace LaFiesta.Controllers
 			}           
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        #region Delete
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
+		public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -185,7 +209,9 @@ namespace LaFiesta.Controllers
             return View(viewModel);
         }
 
-        [HttpPost, ActionName("Delete")]
+        //Admin role cannot be given => authorize does not work.
+        //[Authorize(Roles = "admin")]
+		[HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
@@ -201,6 +227,7 @@ namespace LaFiesta.Controllers
                 ModelState.AddModelError("", "Festival Not Found");
             }
             return View("Index", _context.Festivals.ToList());
-        }
+        } 
+        #endregion
     }
 }

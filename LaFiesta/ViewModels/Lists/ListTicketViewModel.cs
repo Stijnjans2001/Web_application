@@ -6,6 +6,6 @@ namespace LaFiesta.ViewModels.Lists
 {
     public class ListTicketViewModel
     {
-        public List<Ticket> Tickets { get; set; }
+        public List<TicketFestival> TicketFestivals { get; set; }
     }
 }

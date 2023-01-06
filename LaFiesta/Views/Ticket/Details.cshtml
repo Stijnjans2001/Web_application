@@ -8,9 +8,7 @@
 </p>
 <h3>@Model.Soort</h3>
 <p>Minimum leeftijd: @Model.Prijs</p>
-<p>Aantal: @Model.Aantal</p>
-<p>Datum: @Model.Datum</p>
+<p>Aantal: 1</p>
+<p>Datum: @Html.DisplayFor(Model => Model.Datum)</p>
 
-
-
-@Html.ActionLink("Terug", "Index")
+<a asp-action="Index" class="btn" style="background-color: #FF729F; color: white;">Terug</a>
