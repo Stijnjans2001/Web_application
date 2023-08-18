@@ -1,5 +1,3 @@
-# Mobile application
+# Web application
 
-<p align="center">Choose a topic and create a thoroughly tested mobile app that functions on both Android devices and as a Progressive Web App (PWA). 
-Utilize the Ionic framework with Angular, and publish it as an Android app using Capacitor. 
-Ensure an adaptive UI that adjusts to both iOS and Android.</p>
+<p align="center">You work out a project individually for the web applications course. In the project, you design and develop a web application. You choose the subject and the purpose of the application.</p>
